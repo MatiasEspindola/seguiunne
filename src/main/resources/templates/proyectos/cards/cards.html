@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <!-- 5 CARDS -->
+        <div class="row" th:if="${user.getFkIdRol().getPkIdRol() == 1 or user.getFkIdRol().getPkIdRol() == 2}"
+             th:fragment="cards">
+
+            <div class="col-lg-2 col-md-6 col-sm-6 cinco-cards"> 
+
+                <div class="card text-white bg-default mb-3">
+                    <div class="card-body">
+
+
+                        <i class="fa fa-edit" style="font-size: 35px"></i>
+
+                        <b style="font-size: 35px" th:text="${cant_proyectos}"></b> <br>
+                        <a data-toggle="modal" data-target="#proyectos_totales_5" 
+                           style="font-size: 18px; color:white;">Proyectos<br> Totales</a>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-lg-2 col-md-6 col-sm-6 cinco-cards"> 
+
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-body">
+
+                        <i class="fa fa-archive" style="font-size: 35px"></i>
+
+                        <b style="font-size: 35px" th:text="${proyectos_financiados}"></b> <br>
+                        <a data-toggle="modal" data-target="#proyectos_financiados_5" 
+                           style="font-size: 18px; color:white;">Proyectos<br> Financiados</a>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-lg-2 col-md-6 col-sm-6 cinco-cards"> 
+
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-body">
+
+
+                        <i class="fa fa-map-o" style="font-size: 35px"></i>
+
+                        <b style="font-size: 35px" th:text="${actividades_prog}"></b> <br>
+                        <a data-toggle="modal" data-target="#actividades_planificadas_5" 
+                           style="font-size: 18px; color:white;">Actividades<br> Planificadas</a>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-lg-2 col-md-6 col-sm-6 cinco-cards"> 
+
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-body">
+
+
+                        <i class="fa fa-tasks" style="font-size: 35px"></i>
+
+                        <b style="font-size: 35px" th:text="${tareas_prog}"></b> <br>
+                        <a data-toggle="modal" data-target="#tareas_programadas_5" 
+                           style="font-size: 18px; color:white;">Tareas<br> Programadas</a>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-lg-2 col-md-6 col-sm-6 cinco-cards"> 
+
+                <div class="card text-white bg-danger mb-3">
+                    <div class="card-body">
+
+
+                        <i class="fa fa-hourglass-end" style="font-size: 35px"></i>
+
+                        <b style="font-size: 35px" th:text="${tareas_atras}"></b> <br>
+                        <a data-toggle="modal" data-target="#tareas_atrasadas_5" 
+                           style="font-size: 18px; color:white;">Tareas<br> Atrasadas</a>
+
+
+                    </div>
+                </div>
+
+                <!-- MODALS 5-->
+                <!-- Proyectos Totales 5 -->
+                <div class="modal fade bd-example-modal-lg" id="proyectos_totales_5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Proyectos Totales</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <!-- Tabla ADMIN SUPERIOR -->
+                                <table class="table table-hover table-bordered table-responsive-md" id="prt">
+                                    <thead style="background-color: #37474F; color: white;">
+                                        <tr>
+
+                                            <!-- <th>Nro</th> -->
+                                            <th id="director">Director/a</th>
+
+                                            <th>Descripción</th>
+                                            <th>Año</th>
+                                            <th>Unidad Académica</th>
+                                            <th>Estado</th>
+                                            <th class="no-sort"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr th:each="d: ${datos}">
+
+                                            <!-- <td th:text="${d.pkIdDat}"></td> -->
+                                            <td  th:text="
+                                                 ${d.getResponsablesProyectoList().get(0).getApellido()} + ', ' + 
+                                                 ${d.getResponsablesProyectoList().get(0).getNombre()}"></td> 
+
+                                            <td th:text="${d.descri}"></td>
+                                            <td th:text="${d.anio}"></td>
+                                            <td th:text="${d.fkIdFac.facultad}"></td>
+                                            <td th:text="${d.estado == 'EVALUANDO' ? 'PRESENTADO' : d.estado}"></td>
+
+                                            <td>
+                                                <a 
+                                                    th:if="${d.estado == 'FINANCIADO'}"
+                                                    th:href="@{/actividades/listar/} + ${d.pkIdDat}" class="btn btn-info btn-xs"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top" title="Actividades Planificadas">
+                                                    <i class="fa fa-map-o" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proyectos Financiados 5 -->
+                <div class="modal fade bd-example-modal-lg" id="proyectos_financiados_5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Proyectos Financiados</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <!-- Tabla ADMIN SUPERIOR -->
+                                <table sec:authorize="hasRole('ROLE_ADMIN')" class="table table-hover table-bordered table-responsive-md" id="pf5_1">
+                                    <thead style="background-color: #37474F; color: white;">
+                                        <tr>
+
+                                            <!-- <th>Nro</th> -->
+                                            <th  id="director">Director/a</th>
+
+                                            <th>Descripción</th>
+                                            <th>Año</th>
+                                            <th>Unidad Académica</th>
+                                            <th>Estado</th>
+                                            <th class="no-sort"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr th:each="pf5_1: ${proyectosFinanciados}">
+
+                                            <!-- <td th:text="${d.pkIdDat}"></td> -->
+                                            <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="
+                                                ${pf5_1.getResponsablesProyectoList().get(0).getApellido()} + ', ' + 
+                                                ${pf5_1.getResponsablesProyectoList().get(0).getNombre()}"></td> 
+
+                                            <td th:text="${pf5_1.descri}"></td>
+                                            <td th:text="${pf5_1.anio}"></td>
+                                            <td th:text="${pf5_1.fkIdFac.facultad}"></td>
+                                            <td th:text="${pf5_1.estado}"></td>
+
+                                            <td>
+                                                <a 
+                                                    th:href="@{/actividades/listar/} + ${pf5_1.pkIdDat}" class="btn btn-info btn-xs"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top" title="Actividades Planificadas">
+                                                    <i class="fa fa-map-o" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                                <!-- Tabla ADMIN POR FACULTAD -->
+                                <table sec:authorize="hasRole('ROLE_UNIDAD')" class="table table-hover table-bordered table-responsive-md" id="pf5_2">
+                                    <thead style="background-color: #37474F; color: white;">
+                                        <tr>
+
+                                            <!-- <th>Nro</th> -->
+                                            <th id="director">Director/a</th>
+
+                                            <th>Descripción</th>
+                                            <th>Año</th>
+                                            <th>Unidad Académica</th>
+                                            <th>Estado</th>
+                                            <th class="no-sort"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr th:each="pf5_2 : ${proyectosFinanciadosPorFacultad}">
+
+                                            <!-- <td th:text="${d.pkIdDat}"></td> -->
+                                            <td th:text="
+                                                ${pf5_2.getResponsablesProyectoList().get(0).getApellido()} + ', ' + 
+                                                ${pf5_2.getResponsablesProyectoList().get(0).getNombre()}"></td> 
+
+                                            <td th:text="${pf5_2.descri}"></td>
+                                            <td th:text="${pf5_2.anio}"></td>
+                                            <td th:text="${pf5_2.fkIdFac.facultad}"></td>
+                                            <td th:text="${pf5_2.estado}"></td>
+
+                                            <td>
+                                                <a 
+                                                    th:href="@{/actividades/listar/} + ${pf5_2.pkIdDat}" class="btn btn-info btn-xs"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top" title="Actividades Planificadas">
+                                                    <i class="fa fa-map-o" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actividades Planificadas 5 -->
+                <div class="modal fade bd-example-modal-lg" id="actividades_planificadas_5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Actividades Planificadas</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <!-- Tabla ADMIN SUPERIOR -->
+                                <table sec:authorize="hasRole('ROLE_ADMIN')" class="table table-hover table-bordered table-responsive-md" id="actAdm">
+                                    <thead style="background-color: #37474F; color: white;">
+                                        <tr>
+                                            <th>Director/a</th>
+                                            <th>Contacto</th>
+                                            <th>Unidad Académica</th>
+                                            <th>Descripción</th>
+                                            <th class="no-sort"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr th:each="act: ${listar_actividades}">
+                                            <td th:text="${act.fkIdPro.fkIdDat.getResponsablesProyectoList().get(0).getApellido()} + ', ' 
+                                                + ${act.fkIdPro.fkIdDat.getResponsablesProyectoList().get(0).getNombre()}"></td>
+                                            <td th:text="${act.fkIdPro.fkIdDat.getResponsablesProyectoList().get(0).getEmail()}"></td>
+                                            <td th:text="${act.facultad()}"></td>
+                                            <td th:text="${act.descri}"></td>
+                                            <td>
+                                                <a 
+                                                    th:href="@{/actividades/ver/} + ${act.pkIdAct}" class="btn btn-info btn-xs"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top" title="Ver Actividad">
+                                                    <i class="fa fa-mouse-pointer" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- Tabla ADMIN UNIDAD -->
+                                <table sec:authorize="hasRole('ROLE_UNIDAD')" class="table table-hover table-bordered table-responsive-md" id="actUni">
+                                    <thead style="background-color: #37474F; color: white;">
+                                        <tr>
+                                            <th>Director/a</th>
+                                            <th>Contacto</th>
+                                            <th>Unidad Académica</th>
+                                            <th>Descripción</th>
+                                            <th class="no-sort"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr th:each="act: ${listar_actividades}">
+                                            <td th:text="${act.fkIdPro.fkIdDat.getResponsablesProyectoList().get(0).getApellido()} + ', ' 
+                                                + ${act.fkIdPro.fkIdDat.getResponsablesProyectoList().get(0).getNombre()}"></td>
+                                            <td th:text="${act.fkIdPro.fkIdDat.getResponsablesProyectoList().get(0).getEmail()}"></td>
+                                            <td th:text="${act.facultad()}"></td>
+                                            <td th:text="${act.descri}"></td>
+                                            <td>
+                                                <a 
+                                                    th:href="@{/actividades/ver/} + ${act.pkIdAct}" class="btn btn-info btn-xs"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top" title="Ver Actividad">
+                                                    <i class="fa fa-mouse-pointer" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tareas Programadas 5 -->
+                <div class="modal fade bd-example-modal-lg" id="tareas_programadas_5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Tareas Programadas</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <table class="table table-hover table-bordered table-responsive table-responsive-md" id="tarPro5">
+                                    <thead style="background-color: #37474F; color: white;">
+                                        <tr>
+                                            <th>Director/a</th>
+                                            <th>Contacto</th>
+                                            <th>Unidad Académica</th>
+                                            <th>Título</th>
+                                            <th>Lugar</th>
+                                            <th>Prioridad</th>
+                                            <th>Fecha Inicio</th>
+                                            <th>Fecha Fin</th>
+                                            <th>Estado</th>
+                                            <th class="no-sort"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> 
+                                        <tr th:each="lis: ${listar_Tareas}">
+                                            <td th:text="${lis.getFkIdAct().getFkIdPro().getFkIdDat().obtenerDirector()}"></td>
+                                            <td th:text="${lis.getFkIdAct().getFkIdPro().getFkIdDat().obtenerEmail()}"></td>
+                                            <td th:text="${lis.getFkIdAct().facultad()}"></td>
+                                            <td th:text="${lis.titu}"></td>
+                                            <td th:text="${lis.lugar}"></td>
+                                            <td th:text="${lis.prio}"></td>
+                                            <td th:text="${lis.fecIni}"></td>
+                                            <td th:text="${lis.fecFin}"></td>
+                                            <td th:if="${lis.atrasada}" style="color: red; font-weight: bolder;">Atrasada</td>
+                                            <td th:if="${lis.fin}" style="color:green; font-weight: bolder;">Finalizada</td>
+                                            <td th:if="${lis.rep == false and lis.atrasada == false} and ${lis.fin == false}" style="color:blue; font-weight: bolder;">En Curso</td>
+                                            <td th:if="${lis.rep and lis.atrasada == false}" style="color:#8B008B; font-weight: bolder;">Reprogramada</td>
+                                            <td>
+                                                <a 
+                                                    th:href="@{/actividades/ver/} + ${lis.fkIdAct.getPkIdAct()}" class="btn btn-info btn-xs"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top" title="Ver Tarea">
+                                                    <i class="fa fa-mouse-pointer" aria-hidden="true"></i>
+                                                </a> 
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table> 
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tareas Atrasadas 5 -->
+                <div class="modal fade bd-example-modal-lg" id="tareas_atrasadas_5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Tareas Atrasadas</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <table class="table table-hover table-bordered table-responsive table-responsive-md" id="tarAtra5">
+                                    <thead style="background-color: #37474F; color: white;">
+                                        <tr>
+                                            <th>Director/a</th>
+                                            <th>Contacto</th>
+                                            <th>Unidad Académica</th>
+                                            <th>Título</th>
+                                            <th>Lugar</th>
+                                            <th>Prioridad</th>
+                                            <th>Fecha Inicio</th>
+                                            <th>Fecha Fin</th>
+                                            <th class="no-sort"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> 
+                                        <tr th:each="tA: ${listarTA}">
+                                            <td th:text="${tA.getFkIdAct().getFkIdPro().getFkIdDat().obtenerDirector()}"></td>
+                                            <td th:text="${tA.getFkIdAct().getFkIdPro().getFkIdDat().obtenerEmail()}"></td>
+                                            <td th:text="${tA.getFkIdAct().facultad()}"></td>
+                                            <td th:text="${tA.titu}"></td>
+                                            <td th:text="${tA.lugar}"></td>
+                                            <td th:text="${tA.prio}"></td>
+                                            <td th:text="${tA.fecIni}"></td>
+                                            <td th:text="${tA.fecFin}"></td>
+                                            <td>
+                                                <a 
+                                                    th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}" class="btn btn-info btn-xs"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top" title="Ver Tarea">
+                                                    <i class="fa fa-mouse-pointer" aria-hidden="true"></i>
+                                                </a> 
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table> 
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- 4 CARDS -->
+        <div class="row" th:if="${user.getFkIdRol().getPkIdRol() == 3}"
+             th:fragment="cards">
+
+            <div class="col-lg-3 col-md-6 col-sm-6"> 
+
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-body">
+
+                        <i class="fa fa-archive" style="font-size: 35px"></i>
+
+                        <b style="font-size: 35px" th:text="${proyectos_financiados}"></b> <br>
+                        <a data-toggle="modal" data-target="#proyectos_financiados_4" 
+                           style="font-size: 18px; color:white;">Proyectos<br> Financiados</a>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6"> 
+
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-body">
+
+
+                        <i class="fa fa-map-o" style="font-size: 35px"></i>
+
+                        <b style="font-size: 35px" th:text="${actividades_prog}"></b> <br>
+                        <a data-toggle="modal" data-target="#actividades_planificadas_4" 
+                           style="font-size: 18px; color:white;">Actividades<br> Planificadas</a>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6"> 
+
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-body">
+
+
+                        <i class="fa fa-tasks" style="font-size: 35px"></i>
+
+                        <b style="font-size: 35px" th:text="${tareas_prog}"></b> <br>
+                        <a data-toggle="modal" data-target="#tareas_programadas_4" 
+                           style="font-size: 18px; color:white;">Tareas<br> Programadas</a>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6"> 
+
+                <div class="card text-white bg-danger mb-3">
+                    <div class="card-body">
+
+
+                        <i class="fa fa-hourglass-end" style="font-size: 35px"></i>
+
+                        <b style="font-size: 35px" th:text="${tareas_atras}"></b> <br>
+                        <a data-toggle="modal" data-target="#tareas_atrasadas_4" 
+                           style="font-size: 18px; color:white;">Tareas<br> Atrasadas</a>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- MODALS -->
+            <!-- Proyectos Financiados 4 -->
+            <div class="modal fade bd-example-modal-lg" id="proyectos_financiados_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Proyectos Financiados</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <!-- Tabla -->
+                            <table class="table table-hover table-bordered table-responsive-md" id="pf4">
+                                <thead style="background-color: #37474F; color: white;">
+                                    <tr>
+
+                                        <!-- <th>Nro</th> -->
+                                        <th sec:authorize="hasRole('ROLE_ADMIN')">Director/a</th>
+
+                                        <th>Descripción</th>
+                                        <th>Año</th>
+                                        <th>Unidad Académica</th>
+                                        <th>Estado</th>
+                                        <th class="no-sort"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr th:each="pf4 : ${proyectosFinanciadosPorUsuario}">
+
+                                        <!-- <td th:text="${d.pkIdDat}"></td> -->
+                                        <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="
+                                            ${pf4.getResponsablesProyectoList().get(0).getApellido()} + ', ' + 
+                                            ${pf4.getResponsablesProyectoList().get(0).getNombre()}"></td> 
+
+                                        <td th:text="${pf4.descri}"></td>
+                                        <td th:text="${pf4.anio}"></td>
+                                        <td th:text="${pf4.fkIdFac.facultad}"></td>
+                                        <td th:text="${pf4.estado}"></td>
+
+                                        <td>
+                                            <a 
+                                                th:href="@{/actividades/listar/} + ${pf4.pkIdDat}" class="btn btn-info btn-xs"
+                                                data-toggle="tooltip"
+                                                data-placement="top" title="Actividades Planificadas">
+                                                <i class="fa fa-map-o" aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actividades Planificadas 4 -->
+            <div class="modal fade bd-example-modal-lg" id="actividades_planificadas_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Actividades Planificadas</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <!-- Tabla USUARIO -->
+                            <table class="table table-hover table-bordered table-responsive-md" id="actUsu">
+                                <thead style="background-color: #37474F; color: white;">
+                                    <tr>
+                                        <th>Director/a</th>
+                                        <th>Contacto</th>
+                                        <th>Unidad Académica</th>
+                                        <th>Descripción</th>
+                                        <th class="no-sort"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr th:each="act: ${listar_actividades}">
+                                        <td th:text="${act.fkIdPro.fkIdDat.getResponsablesProyectoList().get(0).getApellido()} + ', ' 
+                                            + ${act.fkIdPro.fkIdDat.getResponsablesProyectoList().get(0).getNombre()}"></td>
+                                        <td th:text="${act.fkIdPro.fkIdDat.getResponsablesProyectoList().get(0).getEmail()}"></td>
+                                        <td th:text="${act.facultad()}"></td>
+                                        <td th:text="${act.descri}"></td>
+                                        <td>
+                                            <a 
+                                                th:href="@{/actividades/ver/} + ${act.pkIdAct}" class="btn btn-info btn-xs"
+                                                data-toggle="tooltip"
+                                                data-placement="top" title="Ver Actividad">
+                                                <i class="fa fa-mouse-pointer" aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tareas Programadas 4 -->
+            <div class="modal fade bd-example-modal-lg" id="tareas_programadas_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Tareas Programadas</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <table class="table table-hover table-bordered table-responsive table-responsive-md" id="tarPro4">
+                                <thead style="background-color: #37474F; color: white;">
+                                    <tr>
+                                        <th>Director/a</th>
+                                        <th>Contacto</th>
+                                        <th>Unidad Académica</th>
+                                        <th>Título</th>
+                                        <th>Lugar</th>
+                                        <th>Prioridad</th>
+                                        <th>Fecha Inicio</th>
+                                        <th>Fecha Fin</th>
+                                        <th>Estado</th>
+                                        <th class="no-sort"></th>
+                                    </tr>
+                                </thead>
+                                <tbody> 
+                                    <tr th:each="lis: ${listar_Tareas}">
+                                        <td th:text="${lis.getFkIdAct().getFkIdPro().getFkIdDat().obtenerDirector()}"></td>
+                                        <td th:text="${lis.getFkIdAct().getFkIdPro().getFkIdDat().obtenerEmail()}"></td>
+                                        <td th:text="${lis.getFkIdAct().facultad()}"></td>
+                                        <td th:text="${lis.titu}"></td>
+                                        <td th:text="${lis.lugar}"></td>
+                                        <td th:text="${lis.prio}"></td>
+                                        <td th:text="${lis.fecIni}"></td>
+                                        <td th:text="${lis.fecFin}"></td>
+                                        <td th:if="${lis.atrasada}" style="color: red; font-weight: bolder;">Atrasada</td>
+                                        <td th:if="${lis.fin}" style="color:green; font-weight: bolder;">Finalizada</td>
+                                        <td th:if="${lis.rep == false and lis.atrasada == false} and ${lis.fin == false}" style="color:blue; font-weight: bolder;">En Curso</td>
+                                        <td th:if="${lis.rep and lis.atrasada == false}" style="color:#8B008B; font-weight: bolder;">Reprogramada</td>
+                                        <td>
+                                            <a 
+                                                th:href="@{/actividades/ver/} + ${lis.fkIdAct.getPkIdAct()}" class="btn btn-info btn-xs"
+                                                data-toggle="tooltip"
+                                                data-placement="top" title="Ver Tarea">
+                                                <i class="fa fa-mouse-pointer" aria-hidden="true"></i>
+                                            </a> 
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table> 
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tareas Atrasadas 4 -->
+            <div class="modal fade bd-example-modal-lg" id="tareas_atrasadas_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Tareas Atrasadas</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <table class="table table-hover table-bordered table-responsive table-responsive-md" id="tarAtra4">
+                                <thead style="background-color: #37474F; color: white;">
+                                    <tr>
+                                        <th>Director/a</th>
+                                        <th>Contacto</th>
+                                        <th>Unidad Académica</th>
+                                        <th>Título</th>
+                                        <th>Lugar</th>
+                                        <th>Prioridad</th>
+                                        <th>Fecha Inicio</th>
+                                        <th>Fecha Fin</th>
+                                        <th class="no-sort"></th>
+                                    </tr>
+                                </thead>
+                                <tbody> 
+                                    <tr th:each="tA: ${listarTA}">
+                                        <td th:text="${tA.getFkIdAct().getFkIdPro().getFkIdDat().obtenerDirector()}"></td>
+                                        <td th:text="${tA.getFkIdAct().getFkIdPro().getFkIdDat().obtenerEmail()}"></td>
+                                        <td th:text="${tA.getFkIdAct().facultad()}"></td>
+                                        <td th:text="${tA.titu}"></td>
+                                        <td th:text="${tA.lugar}"></td>
+                                        <td th:text="${tA.prio}"></td>
+                                        <td th:text="${tA.fecIni}"></td>
+                                        <td th:text="${tA.fecFin}"></td>
+                                        <td>
+                                            <a 
+                                                th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}" class="btn btn-info btn-xs"
+                                                data-toggle="tooltip"
+                                                data-placement="top" title="Ver Tarea">
+                                                <i class="fa fa-mouse-pointer" aria-hidden="true"></i>
+                                            </a> 
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table> 
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </body>
+</html>

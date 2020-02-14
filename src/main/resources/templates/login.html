@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title th:text="'La Universidad en el Medio - Ingresar'"></title>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="css/mdb.min.css" rel="stylesheet">
+        <!-- Your custom styles (optional) -->
+        <link href="css/style.min.css" rel="stylesheet">
+
+        <link rel="icon" type="image/png" th:href="@{/img/logo-medio.png}" />
+
+        <style type="text/css">
+            html,
+            body,
+            header,
+            .view {
+                height: 100%;
+            }
+
+            @media (max-width: 740px) {
+                html,
+                body,
+                header,
+                .view {
+                    height: 1000px;
+                }
+            }
+
+            @media (min-width: 800px) and (max-width: 850px) {
+                html,
+                body,
+                header,
+                .view {
+                    height: 650px;
+                }
+            }
+            @media (min-width: 800px) and (max-width: 850px) {
+                .navbar:not(.top-nav-collapse) {
+                    background: #1C2331!important;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <!-- Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+            <div class="container">
+
+                <!-- Brand -->
+                <a class="navbar-brand waves-effect"  href="#">
+                    <strong class="blue-text" >Secretaria General de Extensión Universitaria &nbsp;
+                    </strong>
+                    <small>
+                        Av. Las Heras 727 - Tel: (0362) 4423910 &nbsp; e-mail: univ_enelmedio@unne.edu.ar
+                    </small>
+                </a>
+
+                <!-- Collapse -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Links -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                    <!-- Left -->
+                    <ul class="navbar-nav mr-auto">
+
+                    </ul>
+
+                    <!-- Right -->
+                    <ul class="navbar-nav nav-flex-icons">
+                        <li class="nav-item">
+                            <a href="https://www.facebook.com/UNNE-Extensi%C3%B3n-Universitaria-612669498863463/" class="nav-link waves-effect" target="_blank">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="http://www.unne.edu.ar/conectando/programas-de-extension/universidad-en-el-medio" class="nav-link waves-effect" target="_blank">
+                                <i class="fa fa-globe"></i>
+                            </a>
+                        </li>
+
+                        <!-- Dropdown -->
+
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+        <!-- Navbar -->
+
+        <!-- Full Page Intro -->
+        <div class="view full-page-intro" style="background-image: url('https://www.tripin.travel/wp-content/uploads/2016/07/Corrientes_Turismo05.jpg'); background-repeat: no-repeat; background-size: cover;">
+
+            <!-- Mask & flexbox options-->
+            <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+                <!-- Content -->
+                <div class="container">
+
+                    <!--Grid row-->
+                    <div class="row wow fadeIn">
+
+                        <!--Grid column-->
+                        <div class="col-md-6 mb-4 white-text text-center text-md-left">
+
+                            <h1 class="display-4 font-weight-bold">Sistema de Seguimiento de Proyectos</h1>
+
+                            <hr class="hr-light">
+
+
+                            <p class="mb-4 d-none d-md-block">
+                                <strong>Visualice y administre sus actividades, tareas y genere informes detallados de la ejecución de sus proyectos</strong>
+                            </p>
+
+                            <a  href="#" class="btn btn-indigo btn-lg">Aprender a usar
+                                <i class="fa fa-graduation-cap ml-2"></i>
+                            </a>
+
+                        </div>
+                        <!--Grid column-->
+
+                        <!--Grid column-->
+                        <div class="col-md-6 col-xl-5 mb-4">
+
+                            <!--Card-->
+                            <div class="card">
+
+                                <!--Card content-->
+                                <div class="card-body">
+
+                                    <!-- Form -->
+                                    <form th:action="@{/login}" method="post">
+                                        <!-- Heading -->
+                                        <h3 class="dark-grey-text text-center">
+                                            <strong>Iniciar Sesión:</strong>
+                                        </h3>
+                                        <hr>
+
+                                        <div class="md-form">
+                                            <i class="fa fa-user prefix grey-text"></i>
+                                            <input type="text" name="username" id="username"  required class="form-control" />
+
+                                            <label for="form3">Usuario</label>
+                                        </div>
+                                        <div class="md-form">
+                                            <i class="fa fa-key prefix grey-text"></i>
+                                            <input type="password" name="password" id="password" required class="form-control" />
+
+                                            <label for="form2">Contraseña</label>
+                                        </div>
+
+
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-indigo">Ingresar</button>
+                                            <hr>
+                                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                            
+                                        </div>
+
+                                    </form>
+                                    <!-- Form -->
+
+                                </div>
+                                <div class="alert alert-success" role="alert" th:if="${success != null}"
+                                     th:text="${success}"></div>
+
+                                <div class="alert alert-danger" role="alert" th:if="${error != null}"
+                                     th:text="${error}"></div>
+
+                                <div class="alert alert-warning" role="alert" th:if="${warning != null}"
+                                     th:text="${warning}"></div>
+
+                                <div class="alert alert-info" role="alert" th:if="${info != null}"
+                                     th:text="${info}"></div>
+                            </div>
+                            <!--/.Card-->
+
+                        </div>
+                        <!--Grid column-->
+
+                    </div>
+                    <!--Grid row-->
+
+                </div>
+                <!-- Content -->
+
+            </div>
+            <!-- Mask & flexbox options-->
+
+        </div>
+        <!-- Full Page Intro -->
+
+
+
+
+
+        <!-- SCRIPTS -->
+        <!-- JQuery -->
+        <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript" src="js/popper.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" src="js/mdb.min.js"></script>
+        <!-- Initializations -->
+        <script type="text/javascript">
+            // Animations initialization
+            new WOW().init();
+        </script>
+        <script>
+            setInterval('cerrar()', 3000);
+
+            function cerrar() {
+            $(".alert").delay(300).slideUp(50, function () {
+            $(this).hide();
+            });
+            }
+            ;
+        </script>
+    </body>
+
+</html>

@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head th:replace="layout/layout :: head">
+   
+   
+</head>
+
+<body class="grey lighten-3">
+
+	<!-- ENCABEZADO -->
+	<header th:replace="layout/layout :: header"></header>
+	
+	<!-- MAIN -->
+	<main class="pt-5 mx-lg-5">
+        <div  class="container-fluid mt-5">
+        
+    		<div style="height: 100%">
+    			<div class="card flex-column p-4 mb-4" >
+    				<span>Estás aquí &nbsp; <i class="fa fa-hand-o-right" aria-hidden="true"></i> &nbsp;
+    					<a th:href="@{/proyectos/listar}" th:text="'Mis Proyectos'"></a>
+    					
+    				</span>
+    			</div>
+        		<div class="card flex-column p-4" >
+            		<h1 class="animated fadeIn mb-4 text-muted" th:text="${titulo}">
+            			
+            		</h1>
+            		<h4 th:text="${tarea}"></h4>
+					
+            		<!-- Tabla -->
+   					<table class="table table-hover table-bordered">
+					<thead style="background-color: #0099CC; color: white;">
+						<tr>
+							<th></th>
+							<th>ID</th>
+							<th>Cantidad Personas</th>
+							<th>Descripción</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						
+						<tr th:each="i: ${informes}">
+							
+							<td>
+                            	<input class="form-check-input m-1" type="checkbox" id="checkbox">
+                            	
+                        	</td>
+							
+							<td th:text="${i.pkIdInfotar}"></td>
+							<td th:text="${i.cantEqui}"></td>
+							<td th:text="${i.descri}"></td>
+							
+							<td>
+							 
+									<a class="btn btn-info btn-xs"
+										 data-toggle="tooltip"
+										data-placement="top" title="Ver Calendario">
+										<i class="fa fa-calendar-o" aria-hidden="true"></i>
+									</a>
+							
+									 <a
+										class="btn btn-warning btn-xs"
+									
+										data-toggle="tooltip" data-placement="top" title="Ver Informe de Tarea"><i class="fa fa-document" aria-hidden="true"></i>
+										</a> <a class="btn btn-danger btn-xs"
+										
+										data-toggle="tooltip"
+										data-placement="top" title="Informes"><i class="fa fa-address-card-o" aria-hidden="true"></i>
+									</a>
+							</td>
+									
+        				</tr>
+        			
+					</tbody>
+				</table>
+ 					
+        		</div>
+  
+        		
+   			</div>
+        
+        </div>
+    </main>
+ 	
+    
+    <!-- PIE -->
+    <footer th:replace="layout/layout :: footer"></footer>
+   
+
+</body>
+
+</html>

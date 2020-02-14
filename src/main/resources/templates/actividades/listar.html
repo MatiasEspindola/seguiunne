@@ -1,0 +1,310 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+    <head th:replace="layout/layout :: head">
+
+
+    </head>
+
+    <body class="grey lighten-3">
+
+        <div>
+
+            <!-- ENCABEZADO -->
+            <header th:replace="layout/layout :: header"></header>
+
+        </div>
+
+        <!-- MAIN -->
+        <main class="pt-5 mx-lg-5">
+            <div  class="container-fluid mt-5">
+
+                <!-- Start your project here-->
+                <div style="height: 100%">
+
+                    <!-- Ruta -->
+
+                    <div class="card flex-column p-4 mb-4" >
+                        <span>Estás aquí &nbsp; <i class="fa fa-hand-o-right" aria-hidden="true"></i> &nbsp;
+                            <a th:href="@{/proyectos/listar}" th:text="'Mis Proyectos'"></a>
+                            <span th:text="' / '"></span>
+                            <a th:href="@{/actividades/listar/} + ${proyecto.pkIdDat}" th:text="'Actividades'"></a>
+                        </span>
+                    </div>
+
+                    <!-- Fin Ruta -->
+
+                    <!-- Maestro -->
+
+                    <div class="card flex-column p-4 mb-4" >
+                        <h2 th:text="${titulo1}" class="mb-4"></h2>
+                        <h4 class="animated fadeIn mb-4 text-muted" th:text="${proyecto}"></h4>
+
+                        <ul class="list-group">
+
+                            <li class="list-group-item list-group-item-light fa fa-circle" style="background-color: rgba(255, 235, 59, 0.1); color: #1a237e;" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Facultad: ' + ${proyecto.fkIdFac}"></li>
+                            <li class="list-group-item list-group-item-light fa fa-circle" style="background-color: rgba(255, 235, 59, 0.1); color: #1a237e;" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Director/a: ' + ${proyecto.responsablesProyectoList[0]}">
+                            <li class="list-group-item list-group-item-light fa fa-circle" style="background-color: rgba(255, 235, 59, 0.1); color: #1a237e;" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Co-Director/a: ' + ${proyecto.responsablesProyectoList[1]}"></li>
+                            <li class="list-group-item list-group-item-light fa fa-circle" style="background-color: rgba(255, 235, 59, 0.1); color: #1a237e;" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Línea: ' + ${proyecto.fkIdEjeLinea}"></li>
+                            <li class="list-group-item list-group-item-light fa fa-circle" style="background-color: rgba(255, 235, 59, 0.1); color: #1a237e;" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Eje Temático: ' + ${proyecto.fkIdEje}"></li>
+
+                        </ul>
+
+                    </div>
+
+                    <!-- Fin Maestro -->
+                    <div class="alert alert-success" role="alert" th:if="${success != null}"
+                         th:text="${success}"></div>
+
+                    <div class="alert alert-danger" role="alert" th:if="${error != null}"
+                         th:text="${error}"></div>
+
+                    <div class="alert alert-warning" role="alert" th:if="${warning != null}"
+                         th:text="${warning}"></div>
+
+                    <div class="alert alert-info" role="alert" th:if="${info != null}"
+                         th:text="${info}"></div>
+                    <!-- Tabla de Actividades -->
+
+                    <div class="card flex-column p-4 mb-4" >
+
+                        <div>
+                            <h2 class="mb-4 float-left"><span th:text="${titulo2}"></span><span style="font-size: 0.6em;" class="small text-info text-sm ">Haga click en la actividad para más opciones</span></h2>
+                        </div>
+                        <div>
+                            <a th:href="@{/actividades/nueva/} + ${idproyecto}" style="max-width: 20%; margin-top: -5.0em;" class="btn btn-primary btn-sm float-right"
+                               data-toggle="tooltip"
+                               data-placement="top" title="Añadir una nueva actividad" sec:authorize="hasRole('ROLE_USUARIO')">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                &nbsp;&nbsp;&nbsp;Nueva Actividad
+                            </a>								
+                        </div>
+
+                        <table class="table table-bordered table-sm">
+                            <thead class="list-group-item-primary">
+                                <tr>					
+                                    <th>Mes 1 (Mayo 2019)</th>
+                                    <th>Mes 2 (Junio 2019)</th>
+                                    <th>Mes 3 (Julio 2019)</th>						
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr >	
+                                    <td  style="width: 30%; padding: 0;"> 
+                                        <ul class="list-group p-0">
+                                            <li th:each="a: ${part1}" class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a class="text-primary font-weight-bold u" th:href="@{/actividades/ver/} + ${a.pkIdAct}" th:remove="${not a.m1} ? body : none" th:text="${a.descri}"></a>
+                                                <span class="badge badge-primary badge-pill" th:text="${a.cantidadTareasProgramadas()}"></span>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td  style="width: 30%; padding: 0;"> 
+                                        <ul class="list-group p-0">
+                                            <li th:each="a: ${part2}" class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a class="text-primary font-weight-bold u" th:href="@{/actividades/ver/} + ${a.pkIdAct}" th:remove="${not a.m2} ? body : none" th:text="${a.descri}"></a>
+                                                <span class="badge badge-primary badge-pill" th:text="${a.cantidadTareasProgramadas()}"></span>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td  style="width: 30%; padding: 0;"> 
+                                        <ul class="list-group p-0">
+                                            <li th:each="a: ${part3}" class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a class="text-primary font-weight-bold u" th:href="@{/actividades/ver/} + ${a.pkIdAct}" th:remove="${not a.m3} ? body : none" th:text="${a.descri}"></a>
+                                                <span class="badge badge-primary badge-pill" th:text="${a.cantidadTareasProgramadas()}"></span>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered table-striped table-hover table-sm">
+                            <thead class="list-group-item-primary">
+                                <tr>					
+                                    <th>Mes 4 (Agosto 2019)</th>
+                                    <th>Mes 5 (Septiembre 2019)</th>
+                                    <th>Mes 6 (Octubre 2019)</th>						
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td  style="width: 30%; padding: 0;"> 
+                                        <ul class="list-group p-0">
+                                            <li th:each="a: ${part4}" class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a class="text-primary font-weight-bold u" th:href="@{/actividades/ver/} + ${a.pkIdAct}" th:remove="${not a.m4} ? body : none" th:text="${a.descri}"></a>
+                                                <span class="badge badge-primary badge-pill" th:text="${a.cantidadTareasProgramadas()}"></span>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td  style="width: 30%; padding: 0;"> 
+                                        <ul class="list-group p-0">
+                                            <li th:each="a: ${part5}" class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a class="text-primary font-weight-bold u" th:href="@{/actividades/ver/} + ${a.pkIdAct}" th:remove="${not a.m5} ? body : none" th:text="${a.descri}"></a>
+                                                <span class="badge badge-primary badge-pill" th:text="${a.cantidadTareasProgramadas()}"></span>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td  style="width: 30%; padding: 0;"> 
+                                        <ul class="list-group p-0">
+                                            <li th:each="a: ${part6}" class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a class="text-primary font-weight-bold u" th:href="@{/actividades/ver/} + ${a.pkIdAct}" th:remove="${not a.m6} ? body : none" th:text="${a.descri}"></a>
+                                                <span class="badge badge-primary badge-pill" th:text="${a.cantidadTareasProgramadas()}"></span>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered table-striped table-hover table-sm">
+                            <thead class="list-group-item-primary">
+                                <tr>					
+                                    <th>Mes 7 (Noviembre 2019)</th>
+                                    <th>Mes 8 (Diciembre 2019)</th>
+                                    <th>Mes 9 (Enero 2020)</th>						
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td  style="width: 30%; padding: 0;"> 
+                                        <ul class="list-group p-0">
+                                            <li th:each="a: ${part7}" class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a class="text-primary font-weight-bold u" th:href="@{/actividades/ver/} + ${a.pkIdAct}" th:remove="${not a.m7} ? body : none" th:text="${a.descri}"></a>
+                                                <span class="badge badge-primary badge-pill" th:text="${a.cantidadTareasProgramadas()}"></span>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td  style="width: 30%; padding: 0;"> 
+                                        <ul class="list-group p-0">
+                                            <li th:each="a: ${part8}" class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a class="text-primary font-weight-bold u" th:href="@{/actividades/ver/} + ${a.pkIdAct}" th:remove="${not a.m8} ? body : none" th:text="${a.descri}"></a>
+                                                <span class="badge badge-primary badge-pill" th:text="${a.cantidadTareasProgramadas()}"></span>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td  style="width: 30%; padding: 0;"> 
+                                        <ul class="list-group p-0">
+                                            <li th:each="a: ${part9}" class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a class="text-primary font-weight-bold u" th:href="@{/actividades/ver/} + ${a.pkIdAct}" th:remove="${not a.m9} ? body : none" th:text="${a.descri}"></a>
+                                                <span class="badge badge-primary badge-pill" th:text="${a.cantidadTareasProgramadas()}"></span>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered table-striped table-hover table-sm">
+                            <thead class="list-group-item-primary">
+                                <tr>					
+                                    <th>Mes 10 (Febrero 2020)</th>
+                                    <th>Mes 11 (Marzo 2020)</th>
+                                    <th>Mes 12 (Abril 2020)</th>						
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td  style="width: 30%; padding: 0;"> 
+                                        <ul class="list-group p-0">
+                                            <li th:each="a: ${part10}" class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a class="text-primary font-weight-bold u" th:href="@{/actividades/ver/} + ${a.pkIdAct}" th:remove="${not a.m10} ? body : none" th:text="${a.descri}"></a>
+                                                <span class="badge badge-primary badge-pill" th:text="${a.cantidadTareasProgramadas()}"></span>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td  style="width: 30%; padding: 0;"> 
+                                        <ul class="list-group p-0">
+                                            <li th:each="a: ${part11}" class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a class="text-primary font-weight-bold u" th:href="@{/actividades/ver/} + ${a.pkIdAct}" th:remove="${not a.m11} ? body : none" th:text="${a.descri}"></a>
+                                                <span class="badge badge-primary badge-pill" th:text="${a.cantidadTareasProgramadas()}"></span>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td  style="width: 30%; padding: 0;"> 
+                                        <ul class="list-group p-0">
+                                            <li th:each="a: ${part12}" class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a class="text-primary font-weight-bold u" th:href="@{/actividades/ver/} + ${a.pkIdAct}" th:remove="${not a.m12} ? body : none" th:text="${a.descri}"></a>
+                                                <span class="badge badge-primary badge-pill" th:text="${a.cantidadTareasProgramadas()}"></span>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <!-- Fin Tabla de Actividades -->
+
+                    <div class="card flex-column p-4" th:remove="all" >
+
+
+                        <!-- Tabla -->
+                        <table class="table table-hover table-bordered">
+                            <thead style="background-color: #0099CC; color: white;">
+                                <tr>
+                                    <th></th>
+                                    <th>ID</th>
+                                    <th>Descripción</th>
+                                    <th>Realizada</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr th:each="a: ${actividades}">
+
+                                    <td>
+                                        <input class="form-check-input m-1" type="checkbox" id="checkbox1">
+
+                                    </td>
+
+                                    <td th:text="${a.pkIdAct}"></td>
+                                    <td th:text="${a.descri}"></td>
+                                    <td th:text="${a.fin} ? 'Sí' : 'No'"></td>
+
+                                    <td>							
+                                        <a
+                                            class="btn btn-warning btn-xs"
+                                            th:href="@{/tareas/listar/} + ${a.pkIdAct}"
+                                            data-toggle="tooltip" data-placement="top" title="Ver detalles"><i class="fa fa-window-maximize" aria-hidden="true"></i>
+                                        </a> <a class="btn btn-danger btn-xs"
+                                                th:href="@{/borrar/} + ${a.pkIdAct}"
+                                                data-toggle="tooltip"
+                                                data-placement="top" title="Informes"><i class="fa fa-address-card-o" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </main>
+        
+      
+
+       
+        <div th:remove="all">
+              <footer th:replace="layout/layout :: footer"></footer>
+        </div> 
+
+
+          <!-- Primero JS, después Bootstrap JS -->
+            <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+            <script th:src="@{/js/jquery-ui.min.js}"></script>
+            <script th:src="@{/js/popper.min.js}"></script>
+            <script th:src="@{/js/bootstrap.min.js}"></script>
+            <script th:src="@{/js/bootstrap-notify.js}"></script>
+            <!-- MDB core JavaScript -->
+            <script th:src="@{/js/mdb.min.js}"></script>
+
+    </body>
+
+</html>

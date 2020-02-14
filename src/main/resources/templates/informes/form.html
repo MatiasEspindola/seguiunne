@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+    <head th:replace="layout/layout :: head">
+
+
+    </head>
+
+    <body class="grey lighten-3">
+
+        <!-- ENCABEZADO -->
+        <header th:replace="layout/layout :: header"></header>
+
+        <!-- MAIN -->
+        <main class="pt-5 mx-lg-5">
+            <div  class="container-fluid mt-5">
+
+                <!-- Start your project here-->
+                <div style="height: 100%">
+
+                    <!-- Ruta -->
+
+                    <div class="card flex-column p-4 mb-4" >
+                        <span>Estás aquí &nbsp; <i class="fa fa-hand-o-right" aria-hidden="true"></i> &nbsp;
+                            <a th:href="@{/proyectos/listar}" th:text="'Mis Proyectos'"></a>
+                            <span th:text="' / '"></span>
+                            <a th:href="@{/actividades/listar/} + ${tarea.fkIdAct.fkIdPro.fkIdDat.pkIdDat}" th:text="'Actividades'"></a>
+                            <span th:text="' / '"></span>
+                            <a th:href="@{/actividades/ver/} + ${tarea.fkIdAct.pkIdAct}" th:text="'Detalle de Actividad'"></a>
+                            <span th:text="' / '"></span>
+                            <a th:href="@{/informes/form/} + ${tarea.pkIdTar}" th:text="'Informe de Tarea'"></a>
+                        </span>
+                    </div>
+
+                    <!-- Fin Ruta -->
+
+                    <div th:object="${informe}" th:remove="tag">
+                        <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger"
+                            role="alert">
+                            <li th:each="err: ${#fields.errors('*')}" th:text="${error}"></li>
+                        </ul>
+                    </div>
+
+                    <div class="alert alert-success" role="alert" th:if="${success != null}"
+                         th:text="${success}"></div>
+
+                    <div class="alert alert-danger" role="alert" th:if="${error != null}"
+                         th:text="${error}"></div>
+
+                    <div class="alert alert-warning" role="alert" th:if="${warning != null}"
+                         th:text="${warning}"></div>
+
+                    <div class="alert alert-info" role="alert" th:if="${info != null}"
+                         th:text="${info}"></div>
+
+                    <!-- Maestro -->
+
+                    <div class="card flex-column p-4 mb-4" >
+
+                        <h3 class="animated fadeIn mb-4">
+                            <i class="fa fa-tasks mr-3"></i>&nbsp;&nbsp;<span th:text="${titulo3}"></span>
+                        </h3>
+                        <ul class="list-group">
+
+                            <li class="list-group-item list-group-item-light fa fa-circle" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Título: ' + ${tarea.titu}"></li>
+                            <li class="list-group-item list-group-item-light fa fa-circle" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Prioridad: ' + ${tarea.prio}">
+                            <li class="list-group-item list-group-item-light fa fa-circle" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Fecha de Inicio: ' + ${#dates.format(tarea.fecIni, 'dd-MMM-yyyy')}"></li>
+                            <li class="list-group-item list-group-item-light fa fa-circle" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Fecha de Fin: ' + ${#dates.format(tarea.fecFin, 'dd-MMM-yyyy')}">
+                                <br/>
+                            <li class="list-group-item list-group-item-info fa fa-tasks" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;' + ${titulo2} + ': ' + ${tarea.fkIdAct.descri}">
+                            <li class="list-group-item list-group-item-info fa fa-book " th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;' + ${titulo1}+ ': ' + ${tarea.fkIdAct.fkIdPro.fkIdDat.descri}">
+
+                        </ul>
+
+                    </div>
+
+                    <!-- FIN MAESTRO -->
+
+                    <!-- DETALLE -->
+
+                    <div class="card flex-column p-4 mb-4" >
+                        <h3 class="animated fadeIn mb-4">
+                            <i class="fa fa-info-circle mr-3"></i>&nbsp;&nbsp;<span th:text="${titulo4}"></span>
+                        </h3>
+
+                        <div class="card-body">
+
+                            <form id="form1" name="form1" th:action="@{/informes/form/}" th:object="${informe}" method="post" enctype="multipart/form-data">
+
+
+                                <div class= "md-form">
+                                    <label for="equi" class="text-muted" >Cantidad de Participantes del equipo</label>
+                                    <input type="number" id="equi" name="equi" required value="" th:field="*{cantEqui}" class="form-control number" th:errorClass="'form-control is-invalid'" onkeypress = "return soloNumeros(this, event);">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('cantEqui')}" th:errors="*{cantEqui}"></div>		
+                                </div>
+
+                                <div class= "md-form">
+                                    <label for="exter" class="text-muted" >Cantidad de Participantes Externos</label>
+                                    <input type="number" id="exter" th:field="*{cantExt}" required class="form-control" th:errorClass="'form-control is-invalid'" onkeypress = "return soloNumeros(this, event);" >
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('cantExt')}" th:errors="*{cantExt}"></div>
+                                </div>
+
+                                <div class= "md-form">
+                                    <label for="acti"  class="text-muted">Actividad Desarrollada</label>
+                                    <textarea type="text" id="acti" name="actix" th:field="*{descri}" required class="md-textarea form-control" th:errorClass="'form-control is-invalid'" rows="2"/>
+
+                                </div>
+
+                                <table class="table table-borderless">
+
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class= "md-form">
+                                                    <label for="cal"  class="text-muted">Calle</label>
+                                                    <input type="text" id="cal" th:field="*{calle}" required class="form-control" th:errorClass="'form-control is-invalid'">
+                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('calle')}" th:errors="*{calle}"></div>
+                                                </div>
+                                            </td>
+                                            <td>																				
+                                                <div class= "md-form">
+                                                    <label for="num"  class="text-muted">Número</label>
+                                                    <input type="number" id="num" th:field="*{nroDir}" required class="form-control" th:errorClass="'form-control is-invalid'" onkeypress = "return soloNumeros(this, event);" >
+                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('nroDir')}" th:errors="*{nroDir}"></div>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class= "md-form ">
+                                                    <label for="buscar_localidad" required class="form text-muted" th:text="'Buscar Localidad (Nombre o CP)'"></label>
+                                                    <input type="text" id="buscar_localidad" class="form-control" required />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="md-form">
+                                                    <button id="buscar_dire" type="button"
+                                                            class="btn btn-info btn-xs"
+                                                            data-toggle="tooltip" data-placement="top" title="Buscar en Mapa">
+                                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <input type="hidden" id="loc_id" name="loc_id" required />
+
+                                <div class="col-sm-8 text-muted">
+
+
+                                    <h2 class="animated fadeIn mb-0 text-muted" style="font-size: 1.5em;">Seleccione localidad de la Facultad/Instituto a la que pertenece</h2>
+
+                                    <ul class="uli m-0 p-0">
+
+                                        <table class="table table-sm">
+
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                            <li>
+                                                <input type="radio"    class="checkunne" checked="true" id="f-option" name="selector"/>
+                                                <label for="f-option">Unne - Resistencia</label>
+
+                                                <div class="check"></div>
+                                            </li>
+                                            </td>
+                                            <td>
+                                            <li>
+                                                <input type="radio"  class="checkunne" id="s-option" name="selector"/>
+                                                <label for="s-option">Unne - Corrientes</label>
+
+                                                <div class="check"><div class="inside"></div></div>
+                                            </li>
+                                            </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </ul>
+
+                                </div>
+
+                                <div class= "md-form">
+                                    <div id="map" ></div>
+                                    <div id="legend"><h4>Puntos</h4></div>
+
+                                    <input id="lat" name="lat" type="hidden" th:field="*{localidad}"  ></input>
+
+                                    <div id="output" class="animated fadeIn mb-4 text-muted mt-2">
+                                    </div>
+
+                                    <input id="km" name="km" type="hidden" th:field="*{kilometro}"  ></input>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label for="file" class="col-sm-2 col-form-label">Elegir una Foto </label>
+                                    <div class="col-sm-6">
+                                        <input type="file" name="file" class="form-control" onchange="previewImage(this, [256], 4);" ></small>
+                                        <div class="imagePreview"></div>
+                                    </div>
+                                </div>
+
+
+                                <input id="save" type="submit" value="Guardar Informe" class="btn btn-secondary btn-xs float-left mt-4 mb-4" />
+
+                                <input type="hidden" th:field="*{pkIdInfotar}" />
+                                <div id="muestra" class="alert alert-danger" role="alert">
+
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+
+                    <!-- Fin DETALLE -->
+
+
+                </div>
+        </main>
+
+        <!--Loading-->
+
+        <div class="modal fade" data-backdrop="static" data-keyboard="false"  id="Login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" 
+                     style="background-color: transparent;border: none;box-shadow: none; margin-top: 8.0em;">
+                    <center>
+
+                        <div style="width:160px;height:160px;border:0px solid black;position:absolute;top:50%;left:50%;padding:2px; background-color: white;">
+                            <img th:src="@{/img/gifUnne.gif}" width="120" height="120" />
+                            <br />Por favor, aguarde ...
+                        </div>
+                    </center>
+
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <!-- PIE -->
+            <footer th:replace="layout/layout :: footer"></footer>
+        </div>
+
+
+        <script th:replace="tareas/js/autocomplete-localidades :: javascript"></script>
+        <script th:src="@{/js/jsGoogleMarkerAnimations.js}"></script>
+        <script th:src="@{/js/html5.image.preview.js}"></script>
+        <script>
+
+            $("#save").click(function () {
+                if ($("#exter").val() !== '' && $("#exter").val() !== '0' &&
+                        $("#equi").val() !== '' && $("#equi").val() !== '0' &&
+                        $("#acti").val() !== '' &&
+                        $("#num").val() !== '' &&
+                        $("#cal").val() !== '' &&
+                        $("#buscar_localidad").val() !== '' &&
+                        $("#loc_id").val() !== '' && $("#loc_id").val() !== '0') {
+                    $('#Login').modal('show');
+                }
+            });
+
+
+            function soloNumeros(obj, e)
+            {
+                //Solo retornar los números...
+                var keynum = obj.event ? obj.event.keyCode : e.which;
+                if ((keynum == 8) || (keynum == 46))
+                    return true;
+
+                return /\d/.test(String.fromCharCode(keynum));
+            }
+            ;
+
+        </script>
+
+    </body>
+
+</html>

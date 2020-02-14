@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<body>
+
+<script type="text/javascript" th:fragment="javascript">
+	
+$(document).ready(function(){
+	$("#buscar_localidad").autocomplete({
+		
+		source: function(request, response){
+			if(request.term.length >= 3){
+				$.ajax({
+					url: "/tareas/cargar-localidades/" + request.term,
+					datatype: "json",
+					data: {
+						term: request.term
+					},
+					success: function(data){
+						response($.map(data, function(item){
+							return {
+								value: item.pkIdLoc,
+								label: item.cpa + ', ' + item.nombre + ', ' + item.fkIdPrv.nombre
+							};
+						}));
+					},
+				});
+			}
+		},
+		select: function(event, ui){
+			$("#buscar_localidad").val(ui.item.label);
+			//$("#buscar_dire").click();
+		
+			$("#loc_id").val(ui.item.value);
+			
+			return false;
+		}
+	});
+});
+	
+</script>
+
+</body>
+</html>

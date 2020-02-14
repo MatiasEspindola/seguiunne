@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+    <head th:replace="layout/layout :: head">
+
+
+    </head>
+
+    <body class="grey lighten-3">
+
+        <!-- ENCABEZADO -->
+        <header th:replace="layout/layout :: header"></header>
+
+        <!-- MAIN -->
+        <main class="pt-5 mx-lg-5">
+            <div  class="container-fluid mt-5">
+
+                <div style="height: 100%">
+                    <div class="card flex-column p-4 mb-4" >
+                        <span>Estás aquí &nbsp; <i class="fa fa-hand-o-right" aria-hidden="true"></i> &nbsp;
+                            <a th:href="@{/proyectos/listar}" th:text="'Mis Proyectos'"></a>
+                            <span th:text="' / '"></span>
+                            <a th:href="@{/actividades/listar/} + ${actividad.fkIdPro.pkIdPro}" th:text="'Actividades'"></a>
+                        </span>
+                    </div>
+
+                    <!-- Maestro -->
+
+                    <div class="card flex-column p-4 mb-4" >
+                        <h4 class="animated fadeIn mb-4 text-muted" th:text="${actividad}"></h4>
+
+                        <ul class="list-group">
+
+                            <li class="list-group-item list-group-item-light fa fa-circle" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Facultad: ' + ${actividad.descri}"></li>
+
+                        </ul>
+
+                    </div>
+
+                    <!-- Fin Maestro -->
+
+                    <div class="alert alert-success" role="alert" th:if="${success != null}"
+                         th:text="${success}"></div>
+
+                    <div class="alert alert-danger" role="alert" th:if="${error != null}"
+                         th:text="${error}"></div>
+
+                    <div class="alert alert-warning" role="alert" th:if="${warning != null}"
+                         th:text="${warning}"></div>
+
+                    <div class="alert alert-info" role="alert" th:if="${info != null}"
+                         th:text="${info}"></div>
+
+                    <div class="card flex-column p-4" >
+
+                        <!-- Tabla -->
+                        <table class="table table-hover table-bordered">
+                            <thead style="background-color: #0099CC; color: white;">
+                                <tr>
+                                    <th></th>
+                                    <th>ID</th>
+                                    <th>Titulo</th>
+                                    <th>Descripción</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr th:each="t: ${tareas}">
+
+                                    <td>
+                                        <input class="form-check-input m-1" type="checkbox" id="checkbox">
+
+                                    </td>
+
+                                    <td th:text="${t.pkIdTar}"></td>
+                                    <td th:text="${t.titu}"></td>
+                                    <td th:text="${t.descri}"></td>
+
+                                    <td>						 
+                                        <a
+                                            th:if="${user.getFkIdRol().equals(1)}"
+                                            class="btn btn-warning btn-xs"
+                                            th:href="@{/informes/listar/} + ${t.pkIdTar}"
+                                            data-toggle="tooltip" data-placement="top" title="Generar Informe de la Tarea"><i class="fa fa-document" aria-hidden="true"></i>
+                                        </a> 					
+                                        <a
+                                            class="btn btn-warning btn-xs"
+                                            th:href="@{/informes/listar/} + ${t.pkIdTar}"
+                                            data-toggle="tooltip" data-placement="top" title="Ver Informe de la Tarea"><i class="fa fa-document" aria-hidden="true"></i>
+                                        </a> 
+                                        <a class="btn btn-danger btn-xs"
+                                           th:href="@{/borrar/} + ${t.pkIdTar}"
+                                           data-toggle="tooltip"
+                                           data-placement="top" title="Informes"><i class="fa fa-address-card-o" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </main>
+
+
+        <!-- PIE -->
+        <footer th:replace="layout/layout :: footer"></footer>
+
+
+    </body>
+
+</html>

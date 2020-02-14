@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+    <head th:replace="layout/layout :: head">
+
+
+    </head>
+
+    <body class="grey lighten-3">
+
+        <!-- ENCABEZADO -->
+        <header th:replace="layout/layout :: header"></header>
+
+        <!-- MAIN -->
+        <main class="pt-5 mx-lg-5">
+            <div  class="container-fluid mt-5">
+
+                <!-- Start your project here-->
+                <div style="height: 100%">
+
+                    <!-- Ruta -->
+
+                    <div class="card flex-column p-4 mb-4" >
+                        <span>Estás aquí &nbsp; <i class="fa fa-hand-o-right" aria-hidden="true"></i> &nbsp;
+                            <a th:href="@{/proyectos/listar}" th:text="'Mis Proyectos'"></a>
+                            <span th:text="' / '"></span>
+                            <a th:href="@{/actividades/listar/} + ${tarea.fkIdAct.fkIdPro.fkIdDat.pkIdDat}" th:text="'Actividades'"></a>
+                            <span th:text="' / '"></span>
+                            <a th:href="@{/actividades/ver/} + ${tarea.fkIdAct.pkIdAct}" th:text="'Detalle de Actividad'"></a>
+                            <span th:text="' / '"></span>
+                            <a th:href="@{/informes/form/} + ${tarea.pkIdTar}" th:text="'Informe de Tarea'"></a>
+                        </span>
+                    </div>
+
+                    <!-- Fin Ruta -->
+                    <div class="alert alert-success" role="alert" th:if="${success != null}"
+                         th:text="${success}"></div>
+
+                    <div class="alert alert-danger" role="alert" th:if="${error != null}"
+                         th:text="${error}"></div>
+
+                    <div class="alert alert-warning" role="alert" th:if="${warning != null}"
+                         th:text="${warning}"></div>
+
+                    <div class="alert alert-info" role="alert" th:if="${info != null}"
+                         th:text="${info}"></div>
+                    <!-- Maestro -->
+
+                    <div class="card flex-column p-4 mb-4" >
+
+                        <h3 class="animated fadeIn mb-4">
+                            <i class="fa fa-tasks mr-3"></i>&nbsp;&nbsp;<span th:text="${titulo3}"></span>
+                        </h3>
+                        <ul class="list-group">
+
+                            <li class="list-group-item list-group-item-light fa fa-circle" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Título: ' + ${tarea.titu}"></li>
+                            <li class="list-group-item list-group-item-light fa fa-circle" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Prioridad: ' + ${tarea.prio}">
+                            <li class="list-group-item list-group-item-light fa fa-circle" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Fecha de Inicio: ' + ${#dates.format(tarea.fecIni, 'dd-MMM-yyyy')}"></li>
+                            <li class="list-group-item list-group-item-light fa fa-circle" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Fecha de Fin: ' + ${#dates.format(tarea.fecFin, 'dd-MMM-yyyy')}">
+                                <br/>
+                            <li class="list-group-item list-group-item-primary fa fa-tasks" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;' + ${titulo2} + ': ' + ${tarea.fkIdAct.descri}">
+                            <li class="list-group-item list-group-item-primary fa fa-book " th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;' + ${titulo1}+ ': ' + ${tarea.fkIdAct.fkIdPro.fkIdDat.descri}">
+
+                        </ul>
+
+                    </div>
+
+                    <!-- FIN MAESTRO -->
+
+                    <!-- DETALLE -->
+
+                    <div class="card flex-column p-4 mb-4" >
+                        <h3 class="animated fadeIn mb-4">
+                            <i class="fa fa-info-circle mr-3"></i>&nbsp;&nbsp;<span th:text="${titulo4}"></span>
+                        </h3>
+
+                        <div class="card-body">
+                            <img class="img-thumbnail rounded float-right"
+                                 th:src="@{'/uploads/' + ${informe.foto}}"
+                                 th:alt="${informe.foto}" style="max-width: 36%;"/>
+                            <ul class="list-group">
+
+                                <li class="list-group-item waves-light fa fa-circle" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Cantidad de Personas del Equipo: ' + ${informe.cantEqui}"></li>
+                                <li class="list-group-item waves-light fa fa-circle" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Cantidad de Personas Externas: ' + ${informe.cantExt}">
+                                <li class="list-group-item waves-light fa fa-circle" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Actividad Desarrollada: ' + ${informe.descri}"></li>
+                                <li class="list-group-item waves-light fa fa-circle" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Fecha de Realización: ' + ${#dates.format(informe.fecha, 'dd-MMM-yyyy')}">
+                                    <br />
+                                <li class="list-group-item waves-light fa fa-circle" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Dirección: ' + ${informe.calle} + ' ' + ${informe.nroDir} + ', Cód. Postal ' + ${informe.fkIdLoc} + ' / ' + ${informe.fkIdLoc.fkIdPrv}">
+                                    <br />
+                                <li class="list-group-item waves-light fa fa-circle" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;La tarea se realizó a aproximadamente ' + ${informe.kilometro} + 'kms de la Unne'">
+                            </ul>
+                            <div id="map" >
+
+                            </div>
+                            <input id="lat" name="lat" type="hidden" th:value="${informe.localidad}" ></input>
+                        </div>
+
+                    </div>
+
+                    <!-- Fin DETALLE -->
+
+
+                </div>
+        </main>
+
+        <div>
+            <!-- PIE -->
+            <footer th:replace="layout/layout :: footer"></footer>
+
+        </div>
+
+        <script th:src="@{/js/jsGoogleMarkerAnimations_Disabled_view.js}"></script>
+    </body>
+
+</html>

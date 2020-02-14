@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+    <head th:replace="layout/layout :: head">
+
+
+    </head>
+
+    <body class="grey lighten-3">
+
+        <!-- ENCABEZADO -->
+        <header th:replace="layout/layout :: header"></header>
+
+        <!-- MAIN -->
+        <main class="pt-5 mx-lg-5">
+            <div  class="container-fluid mt-5">
+
+                <!-- Start your project here-->
+                <div style="height: 100%">
+
+                    <!-- Ruta -->
+
+                    <div class="card flex-column p-4 mb-4" >
+                        <span>Estás aquí &nbsp; <i class="fa fa-hand-o-right" aria-hidden="true"></i> &nbsp;
+                            <a th:href="@{/proyectos/listar}" th:text="'Mis Proyectos'"></a>
+                            <span th:text="' / '"></span>
+                            <a th:href="@{/actividades/listar/} + ${actividad.fkIdPro.fkIdDat.pkIdDat}" th:text="'Actividades'"></a>
+                            <span th:text="' / '"></span>
+                            <a th:href="@{/actividades/ver/} + ${actividad.pkIdAct}" th:text="'Detalle de Actividad'"></a>
+
+                        </span>
+                    </div>
+
+                    <!-- Fin Ruta -->
+                    <div class="alert alert-success" role="alert" th:if="${success != null}"
+                         th:text="${success}"></div>
+
+                    <div class="alert alert-danger" role="alert" th:if="${error != null}"
+                         th:text="${error}"></div>
+
+                    <div class="alert alert-warning" role="alert" th:if="${warning != null}"
+                         th:text="${warning}"></div>
+
+                    <div class="alert alert-info" role="alert" th:if="${info != null}"
+                         th:text="${info}"></div>
+                    <!-- Maestro -->
+
+                    <div class="card flex-column p-4 mb-4" >
+                        <h2 th:text="'Detalle de Actividad'" class="mb-4"></h2>
+                        <h4 class="animated fadeIn mb-4 text-muted" th:text="${actividad}"></h4>
+
+                        <ul class="list-group">
+
+                            <li class="list-group-item list-group-item-light fa fa-circle" style="background-color: rgba(255, 235, 59, 0.1); color: #1a237e;" th:text="'&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Proyecto: ' + ${actividad.fkIdPro.fkIdDat.descri}"></li>
+                            <li class="list-group-item list-group-item-light fa fa-circle" style="background-color: rgba(255, 235, 59, 0.1); color: #1a237e;" th:text="${actividad.fin} ? '&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Estado: Finalizada' : '&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Estado: Pendiente'">
+
+                        </ul>
+
+                        <table class="table table-sm">
+
+                            <h5 class="animated fadeIn mb-0 mt-4 text-muted" th:text="'Meses de Ejecución'"></h5>					
+
+                            <tbody>
+                                <tr >	
+                                    <td th:each="m: ${meses}" th:text="${m}"></td>
+                                    <td>
+
+                                        <a sec:authorize="hasRole('ROLE_USUARIO')" th:href="@{/actividades/form/} + ${actividad.pkIdAct}" class="btn btn-warning btn-sm float-right"
+                                           data-toggle="tooltip"
+                                           data-placement="top" title="Modificar meses o nombre de actividad">
+                                            <i class="fa fa-edit" aria-hidden="true"></i>
+                                            &nbsp;&nbsp;&nbsp;Editar Actividad
+                                        </a>
+
+                                    </td>
+                                    <td style="width: 10%;">
+
+                                        <a sec:authorize="hasRole('ROLE_USUARIO')" th:href="@{/actividades/borrar/} + ${actividad.pkIdAct}" class="btn btn-danger btn-sm float-right"
+                                           data-toggle="tooltip"
+                                           data-placement="top" title="Eliminar la actividad" onclick="return confirm('Si borra la actividad, no la podrá recuperar. ¿Está seguro de continuar?');">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Fin Maestro -->
+
+                    <!-- Tabla de Tareas -->
+
+                    <div class="card flex-column p-4 mb-4" >
+                        <h4 class="animated fadeIn mb-2 text-muted" >
+                            Tareas Programadas&nbsp;&nbsp;
+                            <a sec:authorize="hasRole('ROLE_USUARIO')" th:href="@{/tareas/form/} + ${actividad.pkIdAct}" 
+                               class="btn btn-primary btn-sm float-right"
+                               data-toggle="tooltip"
+                               data-placement="top" 
+                               title="Añadir Tarea"
+                               >
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                &nbsp;&nbsp;&nbsp;Añadir Tarea
+                            </a>
+                        </h4>
+
+
+                        <div th:if="${#lists.size(actividad.tareasList) > 0}">
+                            <table id="myTable" class="table table-bordered table-striped table-hover table-sm sortable-theme-bootstrap">
+                                <thead class="list-group-item-primary">
+                                    <tr>
+                                        <th onclick="sortTable(0)">Prioridad (Click para ordenar)&nbsp;&nbsp;<i class="fa fa-arrows-v" aria-hidden="true"></i></th>
+                                        <th onclick="sortTable(1)">Fecha de Inicio&nbsp;&nbsp;<i class="fa fa-arrows-v" aria-hidden="true"></i></th>
+                                        <th onclick="sortTable(2)">Fecha de Fin&nbsp;&nbsp;<i class="fa fa-arrows-v" aria-hidden="true"></i></th>					
+                                        <th>Título</th>
+                                        <th>Descripción</th>
+                                        <th>Lugar</th>
+                                        <th>Estado</th>	
+                                        <th></th>					
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="t: ${actividad.tareasList}">
+                                        <td th:text="${t.prio}"></td>	
+                                        <td th:text="${#dates.format(t.fecIni, 'dd-MMM-yyyy')}"></td>
+                                        <td th:text="${#dates.format(t.fecFin, 'dd-MMM-yyyy')}"></td>
+                                        <td th:text="${t.titu}"></td>
+                                        <td th:text="${t.descri}"></td>
+                                        <td th:text="${t.lugar}"></td>
+
+                                        <td th:if="${t.atrasada}" style="color: red; font-weight: bolder;">Atrasada</td>
+                                        <td th:if="${t.fin}" style="color:green; font-weight: bolder;">Finalizada</td>
+                                        <td th:if="${t.rep == false and t.atrasada == false} and ${t.fin == false}" style="color:blue; font-weight: bolder;">En Curso</td>
+                                        <td th:if="${t.rep and t.atrasada == false}" style="color:#8B008B; font-weight: bolder;">Reprogramada</td>
+
+                                        <td class="float-right" style="width: 15em;">
+                                            <a th:if="${not t.fin}" th:href="@{/informes/form/} + ${t.pkIdTar}" class="btn btn-primary btn-sm"
+                                               data-toggle="tooltip"
+                                               data-placement="top" sec:authorize="hasRole('ROLE_USUARIO')" title="Generar Informe de tarea">
+                                                <i class="fa fa-info" aria-hidden="true"></i>
+                                            </a>
+                                            <span class="p-0" data-toggle="tooltip"
+                                                  data-placement="top" title="Informe ya realizado">
+                                                <a th:if="${t.fin}" class="btn btn-primary btn-sm disabled"
+                                                   >
+                                                    <i class="fa fa-info" aria-hidden="true"></i>
+                                                </a>
+                                            </span>
+                                            <a sec:authorize="hasRole('ROLE_USUARIO')" th:href="@{/tareas/edit/} + ${t.pkIdTar}" class="btn btn-warning btn-sm"
+                                               data-toggle="tooltip"
+                                               data-placement="top" title="Modificar Tarea">
+                                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                            </a>
+                                            <span class="p-0" data-toggle="tooltip"
+                                                  data-placement="top" title="Reprogramación ya realizada">
+                                            <a th:if="${t.fin}" sec:authorize="hasRole('ROLE_USUARIO')" th:href="@{/tareas/reprogramar/} + ${t.pkIdTar}" class="btn btn-sm disabled"
+                                               data-toggle="tooltip"
+                                               data-placement="top"  style="background: #8B008B; color:white;">
+                                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                            </a></span>
+                                            <a th:if="${not t.fin}" sec:authorize="hasRole('ROLE_USUARIO')" th:href="@{/tareas/reprogramar/} + ${t.pkIdTar}" class="btn btn-sm"
+                                               data-toggle="tooltip"
+                                               data-placement="top" title="Reprogramar Tarea" style="background: #8B008B; color:white;">
+                                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                            </a>
+                                            <span class="p-0" data-toggle="tooltip"
+                                                  data-placement="top" th:title="'Reprogramado por: ' + ${t.motivo}">
+                                            <a th:if="${t.rep} and ${not t.atrasada}" style="background: #9400D3; color:white;" class="btn  btn-sm disabled">
+                                                <i class="fa fa-list-alt" aria-hidden="true"></i> 
+                                            </a></span>
+                                            <a sec:authorize="hasRole('ROLE_USUARIO')" th:href="@{/tareas/borrar/} + ${t.pkIdTar}" class="btn btn-danger btn-sm"
+                                               data-toggle="tooltip"
+                                               data-placement="top" title="Borrar la Tarea" onclick="return confirm('Si borra la tarea, no la podrá recuperar. ¿Está seguro de continuar?');">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </a>
+                                            <a th:if="${t.fin}" th:href="@{/informes/ver/} + ${t.pkIdTar}" class="m-0 btn btn-info btn-sm"
+                                               data-toggle="tooltip"
+                                               data-placement="top" title="Ver informe de Tarea">
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                            </a>
+                                            <span class="p-0" th:if="${not t.fin}" data-toggle="tooltip"
+                                                  data-placement="top" title="No hay informes para la tarea">
+                                                <a  class="btn btn-info btn-sm disabled">
+                                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                </a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div th:if="${#lists.size(actividad.tareasList) == 0}">
+                            <h4 class="animated fadeIn mb-4 mt-4 text-muted text-danger" >
+                                Todavía no hay tareas programadas para esta actividad&nbsp;&nbsp;
+
+                            </h4>
+
+                        </div>
+
+                        <!-- Fin Tabla de Actividades -->	
+                    </div>
+                </div>
+        </main>
+
+        <div>
+            <!-- PIE -->
+            <footer th:replace="layout/layout :: footer"></footer>
+        </div>
+
+        <style>
+            th {
+                cursor: pointer;
+            }
+        </style>
+
+        <script>
+            function sortTable(n) {
+                var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+                table = document.getElementById("myTable");
+                switching = true;
+                //Set the sorting direction to ascending:
+                dir = "asc";
+                /*Make a loop that will continue until
+                 no switching has been done:*/
+                while (switching) {                     //start by saying: no switching is done:
+                    switching = false;
+                    rows = table.rows;
+                    /*Loop through all table rows (except the
+                     first, which contains table headers):*/
+                    for (i = 1; i < (rows.length - 1); i++) {                         //start by saying there should be no switching:
+                        shouldSwitch = false;
+                        /*Get the two elements you want to compare,
+                         one from current row and one from the next:*/
+                        x = rows[i].getElementsByTagName("TD")[n];
+                        y = rows[i + 1].getElementsByTagName("TD")[n];
+                        /*check if the two rows should switch place,
+                         based on the direction, asc or desc:*/
+                        if (dir == "asc") {
+                            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                //if so, mark as a switch and break the loop:
+                                shouldSwitch = true;
+                                break;
+                            }
+                        } else if (dir == "desc") {
+                            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                                //if so, mark as a switch and break the loop:
+                                shouldSwitch = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (shouldSwitch) {
+                        /*If a switch has been marked, make the switch
+                         and mark that a switch has been done:*/
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                        //Each time a switch is done, increase this count by 1:
+                        switchcount++;
+                    } else {
+                        /*If no switching has been done AND the direction is "asc",
+                         set the direction to "desc" and run the while loop again.*/
+                        if (switchcount == 0 && dir == "asc") {
+                            dir = "desc";
+                            switching = true;
+                        }
+                    }
+                }
+            }
+        </script>
+
+    </body>
+
+</html>

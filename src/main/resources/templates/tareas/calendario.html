@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+    <head th:replace="layout/layout :: head">
+
+
+    </head>
+
+    <body class="grey lighten-3">
+
+        <!-- ENCABEZADO Original-->
+        <header th:replace="layout/layout :: header"></header>
+
+        <!-- MAIN -->
+        <main class="pt-5 mx-lg-5">
+            <div  class="container-fluid mt-5">
+
+                <div style="height: 100%">
+
+                    <div class="card flex-column p-4 mb-4" >
+                        <span>Estás aquí &nbsp; <i class="fa fa-hand-o-right" aria-hidden="true"></i> &nbsp;
+                            <a th:href="@{/tareas/calendario}" th:text="'Calendario'"></a>
+                        </span>
+                    </div>
+
+                    <style>
+                        @media (max-width:575px) {
+                            .display-4 {
+                                font-size: 1.5rem;
+                            }
+                            .day h5 {
+                                background-color: #f8f9fa;
+                                padding: 3px 5px 5px;
+                                margin: -8px -8px 8px -8px;
+                            }
+                            .date {
+                                padding-left: 4px;
+                            }
+                        }
+
+                        @media (min-width: 576px) {
+                            .day {
+                                height: 14.2857vw;
+                            }
+                        }
+                    </style>
+
+                    <!-- Calendario -->
+                    <div class="row" th:fragment="estados">
+                        <p class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white" style="width: 125px; margin-right: 5px;">Tareas Finalizadas</p>
+                        <p class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white" style="width: 110px; margin-right: 5px;">Tareas en Curso</p>
+                        <p class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="width: 162px; margin-right: 5px; background: #8B008B;">Reprogramadas en Curso</p>
+                        <p class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white" style="width: 118px;">Tareas Atrasadas</p>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </main>
+
+        <!-- PIE -->
+        <footer th:replace="layout/layout :: footer"></footer>
+
+        <script>
+
+        </script>
+
+
+    </body>
+
+</html>

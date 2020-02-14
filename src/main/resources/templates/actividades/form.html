@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head th:replace="layout/layout :: head">
+   
+   
+</head>
+
+<body class="grey lighten-3">
+
+	<!-- ENCABEZADO -->
+	<header th:replace="layout/layout :: header"></header>
+	
+	<!-- MAIN -->
+	<main class="pt-5 mx-lg-5">
+        <div  class="container-fluid mt-5">
+        
+        	<!-- Start your project here-->
+    		<div style="height: 100%">
+    		
+    			<!-- Ruta -->
+    			
+    			<div class="card flex-column p-4 mb-4" >
+    				<span>Estás aquí &nbsp; <i class="fa fa-hand-o-right" aria-hidden="true"></i> &nbsp;
+    					<a th:href="@{/proyectos/listar}" th:text="'Mis Proyectos'"></a>
+    					<span th:text="' / '"></span>
+    					<a th:href="@{/actividades/listar/} + ${actividad.fkIdPro.fkIdDat.pkIdDat}" th:text="'Actividades'"></a>
+    					<span th:text="' / '"></span>
+    					<a th:href="@{/actividades/ver/} + ${actividad.pkIdAct}" th:text="'Detalle de Actividad'"></a>
+    					<span th:text="' / '"></span>
+    					<a th:href="@{/actividades/form/} + ${actividad.pkIdAct}" th:text="'Reprogramar Meses'"></a>
+    				</span>
+    			</div>
+    			
+    			<!-- Fin Ruta -->
+    			
+    			<!-- Maestro -->
+    			
+    			<div class="card flex-column p-4 mb-4" >
+            		<h4 class="animated fadeIn mb-4 text-muted" th:text="${titulo1}"></h4>
+            		
+            		<form th:action="@{/actividades/form/}" th:object="${actividad}" method="post">
+            		
+            			<div class="md-form">
+    						<input type="text" id="descri" th:field="*{descri}" class="form-control" required th:errorClass="'form-control is-invalid'">
+    						<div class="invalid-feedback" th:if="${#fields.hasErrors('descri')}" th:errors="*{descri}"></div>
+    						<label for="descri" >Actividad: </label>
+						</div>
+            		
+            			<table class="table table-sm m-4 mb-4">
+											
+							<h5 class="animated fadeIn mb-0 mt-4 text-muted" th:text="'Meses de Ejecución'"></h5>					
+							<thead>
+								<tr>
+									<th>Mes 1</th><th>Mes 2</th><th>Mes 3</th><th>Mes 4</th><th>Mes 5</th><th>Mes 6</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<input class="form-check-input m-1" type="checkbox" th:field="*{m1}" />
+									</td>
+									<td>
+										<input class="form-check-input m-1" type="checkbox" th:field="*{m2}" />
+									</td>
+									<td>
+										<input class="form-check-input m-1" type="checkbox" th:field="*{m3}" />
+									</td>
+									<td>
+										<input class="form-check-input m-1" type="checkbox" th:field="*{m4}" />
+									</td>
+									<td>
+										<input class="form-check-input m-1" type="checkbox" th:field="*{m5}" />
+									</td>
+									<td>
+										<input class="form-check-input m-1" type="checkbox" th:field="*{m6}" />
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<table class="table table-sm m-4 mb-4">
+							<thead>
+								<tr>
+									<th>Mes 7</th><th>Mes 8</th><th>Mes 9</th><th>Mes 10</th><th>Mes 11</th><th>Mes 12</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<input class="form-check-input m-1" type="checkbox" th:field="*{m7}" />
+									</td>
+									<td>
+										<input class="form-check-input m-1" type="checkbox" th:field="*{m8}" />
+									</td>
+									<td>
+										<input class="form-check-input m-1" type="checkbox" th:field="*{m9}" />
+									</td>
+									<td>
+										<input class="form-check-input m-1" type="checkbox" th:field="*{m10}" />
+									</td>
+									<td>
+										<input class="form-check-input m-1" type="checkbox" th:field="*{m11}" />
+									</td>
+									<td>
+										<input class="form-check-input m-1" type="checkbox" th:field="*{m12}" />
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<input type="submit" value="Guardar" class="btn btn-secondary btn-sm float-right" />
+						
+						
+						<input type="hidden" th:field="*{pkIdAct}" />
+						
+            		</form>
+            	</div>	
+   			</div>
+        </div>
+    </main>
+ 	
+    <div>
+    	 <!-- PIE -->
+    <footer th:replace="layout/layout :: footer"></footer>
+    </div>
+
+	<script>
+		
+	</script>
+	
+</body>
+
+</html>

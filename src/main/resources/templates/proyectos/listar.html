@@ -1,0 +1,519 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+    <head th:replace="layout/layout :: head">
+
+
+    </head>
+
+    <body class="grey lighten-3">
+
+        <style>
+            @media (min-width: 992px) {
+                .cinco-cards {
+                    max-width: 16.666667%;
+                    flex: 0 0 19.999%;
+                    max-width: 20.666667%;
+                }
+            }
+        </style>
+
+        <!-- ENCABEZADO Original-->
+        <header th:replace="layout/layout :: header"></header>
+
+        <!-- MAIN -->
+        <main class="pt-5 mx-lg-5">
+            <div  class="container-fluid mt-5">
+
+                <!-- Start your project here-->
+
+                <div class="alert alert-success" role="alert" th:if="${success != null}"
+                     th:text="${success}"></div>
+
+                <div class="alert alert-info" role="alert" th:if="${agregado != null}"
+                     th:text="${agregado}"></div>
+
+                <div class="alert alert-danger" role="alert" th:if="${error != null}"
+                     th:text="${error}"></div>
+
+                <div class="alert alert-warning" role="alert" th:if="${warning != null}"
+                     th:text="${warning}"></div>
+
+                <div class="alert alert-info" role="alert" th:if="${info != null}"
+                     th:text="${info}"></div>
+
+
+                <div style="height: 100%">
+                    <div class="card flex-column p-4 mb-4" >
+                        <span>Estás aquí &nbsp; <i class="fa fa-hand-o-right" aria-hidden="true"></i> &nbsp;
+                            <a th:href="@{/proyectos/listar}" th:text="'Mis Proyectos'"></a>
+                        </span>
+                    </div>
+
+                    <!-- cards Proyectos -->
+                    <div th:replace="proyectos/cards/cards :: cards">
+
+
+                    </div>
+
+                    <div class="card flex-column p-4" style="margin-bottom: 10px;">
+                        <h1 class="animated fadeIn mb-4 text-muted" th:text="${titulo}"></h1>
+                        <h2 style="margin-top:-20px;"><span style="font-size: 0.6em;" class="small text-info text-sm ">Haga click en el encabezado para ordenar</span></h2>
+                        <!-- Tabla -->
+                        <table class="table table-hover table-bordered table-responsive-md" id="miTabla">
+                            <thead style="background-color: #37474F; color: white;">
+                                <tr>
+
+                                    <!-- <th>Nro</th> -->
+                                    <th  id="director">Director/a</th>
+
+                                    <th>Descripción</th>
+                                    <th>Año</th>
+                                    <th>Unidad Académica</th>
+                                    <th>Estado</th>
+                                    <th class="no-sort"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr th:each="d: ${datos}">
+
+                                    <!-- <td th:text="${d.pkIdDat}"></td> -->
+                                    <td th:text="
+                                        ${d.getResponsablesProyectoList().get(0).getApellido()} + ', ' + 
+                                        ${d.getResponsablesProyectoList().get(0).getNombre()}"></td> 
+
+                                    <td th:text="${d.descri}"></td>
+                                    <td th:text="${d.anio}"></td>
+                                    <td th:text="${d.fkIdFac.facultad}"></td>
+                                    <td th:text="${d.estado == 'EVALUANDO' ? 'PRESENTADO' : d.estado}"></td>
+
+                                    <td>
+                                        <a 
+                                            th:if="${d.estado == 'FINANCIADO'}"
+                                            th:href="@{/actividades/listar/} + ${d.pkIdDat}" class="btn btn-info btn-xs"
+                                            data-toggle="tooltip"
+                                            data-placement="top" title="Actividades Planificadas">
+                                            <i class="fa fa-map-o" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </main>
+
+        <!-- PIE -->
+        <footer th:replace="layout/layout :: footer"></footer>
+
+        <script>
+
+            var director = document.getElementById('director');
+
+            if (director == null) {
+                $(document).ready(function () {
+                    $('#miTabla').dataTable({
+                        "order": [
+                            [4, 'desc']
+                        ],
+                        "language": {
+                            "lengthMenu": "Mostrar _MENU_ registros por página",
+                            "zeroRecords": "Sin resultados",
+                            "info": "Mostrando página _PAGE_ de _PAGES_",
+                            "infoEmpty": "No hay registros disponibles",
+                            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                            "sPrevious": "Anterior",
+                            "sNext": "Siguiente",
+                            "sSearch": "Buscar",
+                            "sFirst": "Primero",
+                            "sLast": "Último"
+                        },
+                        "columnDefs": [
+                            {"orderable": false, "targets": 'no-sort'}
+                        ]
+                    });
+                });
+            } else {
+                $(document).ready(function () {
+                    $('#miTabla').dataTable({
+                        "order": [
+                            [5, 'desc']
+                        ],
+                        "language": {
+                            "lengthMenu": "Mostrar _MENU_ registros por página",
+                            "zeroRecords": "Sin resultados",
+                            "info": "Mostrando página _PAGE_ de _PAGES_",
+                            "infoEmpty": "No hay registros disponibles",
+                            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                            "sPrevious": "Anterior",
+                            "sNext": "Siguiente",
+                            "sSearch": "Buscar",
+                            "sFirst": "Primero",
+                            "sLast": "Último"
+                        },
+                        "columnDefs": [
+                            {"orderable": false, "targets": 'no-sort'}
+                        ]
+                    });
+                });
+            }
+
+            //PROYECTOS FINANCIADOS ROL_USUARIO CARDS DE 4
+            if (director == null) {
+                $(document).ready(function () {
+                    $('#pf4').dataTable({
+                        "order": [
+                            [4, 'desc']
+                        ],
+                        "language": {
+                            "lengthMenu": "Mostrar _MENU_ registros por página",
+                            "zeroRecords": "Sin resultados",
+                            "info": "Mostrando página _PAGE_ de _PAGES_",
+                            "infoEmpty": "No hay registros disponibles",
+                            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                            "sPrevious": "Anterior",
+                            "sNext": "Siguiente",
+                            "sSearch": "Buscar",
+                            "sFirst": "Primero",
+                            "sLast": "Último"
+                        },
+                        "columnDefs": [
+                            {"orderable": false, "targets": 'no-sort'}
+                        ]
+                    });
+                });
+            } else {
+                $(document).ready(function () {
+                    $('#pf4').dataTable({
+                        "order": [
+                            [5, 'desc']
+                        ],
+                        "language": {
+                            "lengthMenu": "Mostrar _MENU_ registros por página",
+                            "zeroRecords": "Sin resultados",
+                            "info": "Mostrando página _PAGE_ de _PAGES_",
+                            "infoEmpty": "No hay registros disponibles",
+                            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                            "sPrevious": "Anterior",
+                            "sNext": "Siguiente",
+                            "sSearch": "Buscar",
+                            "sFirst": "Primero",
+                            "sLast": "Último"
+                        },
+                        "columnDefs": [
+                            {"orderable": false, "targets": 'no-sort'}
+                        ]
+                    });
+                });
+            }
+
+            //PROYECTOS FINANCIADOS ROL_ADMIN CARDS DE 5
+            if (director == null) {
+                $(document).ready(function () {
+                    $('#pf5_1').dataTable({
+                        "order": [
+                            [4, 'desc']
+                        ],
+                        "language": {
+                            "lengthMenu": "Mostrar _MENU_ registros por página",
+                            "zeroRecords": "Sin resultados",
+                            "info": "Mostrando página _PAGE_ de _PAGES_",
+                            "infoEmpty": "No hay registros disponibles",
+                            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                            "sPrevious": "Anterior",
+                            "sNext": "Siguiente",
+                            "sSearch": "Buscar",
+                            "sFirst": "Primero",
+                            "sLast": "Último"
+                        },
+                        "columnDefs": [
+                            {"orderable": false, "targets": 'no-sort'}
+                        ]
+                    });
+                });
+            } else {
+                $(document).ready(function () {
+                    $('#pf5_1').dataTable({
+                        "order": [
+                            [5, 'desc']
+                        ],
+                        "language": {
+                            "lengthMenu": "Mostrar _MENU_ registros por página",
+                            "zeroRecords": "Sin resultados",
+                            "info": "Mostrando página _PAGE_ de _PAGES_",
+                            "infoEmpty": "No hay registros disponibles",
+                            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                            "sPrevious": "Anterior",
+                            "sNext": "Siguiente",
+                            "sSearch": "Buscar",
+                            "sFirst": "Primero",
+                            "sLast": "Último"
+                        },
+                        "columnDefs": [
+                            {"orderable": false, "targets": 'no-sort'}
+                        ]
+                    });
+                });
+            }
+
+            //PROYECTOS FINANCIADOS ROL_UNIDAD CARDS DE 5
+            if (director == null) {
+                $(document).ready(function () {
+                    $('#pf5_2').dataTable({
+                        "order": [
+                            [4, 'desc']
+                        ],
+                        "language": {
+                            "lengthMenu": "Mostrar _MENU_ registros por página",
+                            "zeroRecords": "Sin resultados",
+                            "info": "Mostrando página _PAGE_ de _PAGES_",
+                            "infoEmpty": "No hay registros disponibles",
+                            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                            "sPrevious": "Anterior",
+                            "sNext": "Siguiente",
+                            "sSearch": "Buscar",
+                            "sFirst": "Primero",
+                            "sLast": "Último"
+                        },
+                        "columnDefs": [
+                            {"orderable": false, "targets": 'no-sort'}
+                        ]
+                    });
+                });
+            } else {
+                $(document).ready(function () {
+                    $('#pf5_2').dataTable({
+                        "order": [
+                            [5, 'desc']
+                        ],
+                        "language": {
+                            "lengthMenu": "Mostrar _MENU_ registros por página",
+                            "zeroRecords": "Sin resultados",
+                            "info": "Mostrando página _PAGE_ de _PAGES_",
+                            "infoEmpty": "No hay registros disponibles",
+                            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                            "sPrevious": "Anterior",
+                            "sNext": "Siguiente",
+                            "sSearch": "Buscar",
+                            "sFirst": "Primero",
+                            "sLast": "Último"
+                        },
+                        "columnDefs": [
+                            {"orderable": false, "targets": 'no-sort'}
+                        ]
+                    });
+                });
+            }
+
+            //PROYECTOS TOTALES
+            if (director == null) {
+                $(document).ready(function () {
+                    $('#prt').dataTable({
+                        "order": [
+                            [4, 'desc']
+                        ],
+                        "language": {
+                            "lengthMenu": "Mostrar _MENU_ registros por página",
+                            "zeroRecords": "Sin resultados",
+                            "info": "Mostrando página _PAGE_ de _PAGES_",
+                            "infoEmpty": "No hay registros disponibles",
+                            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                            "sPrevious": "Anterior",
+                            "sNext": "Siguiente",
+                            "sSearch": "Buscar",
+                            "sFirst": "Primero",
+                            "sLast": "Último"
+                        },
+                        "columnDefs": [
+                            {"orderable": false, "targets": 'no-sort'}
+                        ]
+                    });
+                });
+            } else {
+                $(document).ready(function () {
+                    $('#prt').dataTable({
+                        "order": [
+                            [5, 'desc']
+                        ],
+                        "language": {
+                            "lengthMenu": "Mostrar _MENU_ registros por página",
+                            "zeroRecords": "Sin resultados",
+                            "info": "Mostrando página _PAGE_ de _PAGES_",
+                            "infoEmpty": "No hay registros disponibles",
+                            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                            "sPrevious": "Anterior",
+                            "sNext": "Siguiente",
+                            "sSearch": "Buscar",
+                            "sFirst": "Primero",
+                            "sLast": "Último"
+                        },
+                        "columnDefs": [
+                            {"orderable": false, "targets": 'no-sort'}
+                        ]
+                    });
+                });
+            }
+
+            //Actividades Planificadas ROL_ADMIN
+            $(document).ready(function () {
+                $('#actAdm').dataTable({
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por página",
+                        "zeroRecords": "Sin resultados",
+                        "info": "Mostrando página _PAGE_ de _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                        "sPrevious": "Anterior",
+                        "sNext": "Siguiente",
+                        "sSearch": "Buscar",
+                        "sFirst": "Primero",
+                        "sLast": "Último"
+                    },
+                    "columnDefs": [
+                        {"orderable": false, "targets": 'no-sort'}
+                    ]
+                });
+            });
+
+            //Actividades Planificadas ROL_UNIDAD
+            $(document).ready(function () {
+                $('#actUni').dataTable({
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por página",
+                        "zeroRecords": "Sin resultados",
+                        "info": "Mostrando página _PAGE_ de _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                        "sPrevious": "Anterior",
+                        "sNext": "Siguiente",
+                        "sSearch": "Buscar",
+                        "sFirst": "Primero",
+                        "sLast": "Último"
+                    },
+                    "columnDefs": [
+                        {"orderable": false, "targets": 'no-sort'}
+                    ]
+                });
+            });
+
+            //Actividades Planificadas ROL_USU
+            $(document).ready(function () {
+                $('#actUsu').dataTable({
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por página",
+                        "zeroRecords": "Sin resultados",
+                        "info": "Mostrando página _PAGE_ de _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                        "sPrevious": "Anterior",
+                        "sNext": "Siguiente",
+                        "sSearch": "Buscar",
+                        "sFirst": "Primero",
+                        "sLast": "Último"
+                    },
+                    "columnDefs": [
+                        {"orderable": false, "targets": 'no-sort'}
+                    ]
+                });
+            });
+
+            // TAREAS PROGRAMADAS ROL_USUARIO
+            $(document).ready(function () {
+                $('#tarPro4').dataTable({
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por página",
+                        "zeroRecords": "Sin resultados",
+                        "info": "Mostrando página _PAGE_ de _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                        "sPrevious": "Anterior",
+                        "sNext": "Siguiente",
+                        "sSearch": "Buscar",
+                        "sFirst": "Primero",
+                        "sLast": "Último"
+                    },
+                    "columnDefs": [
+                        {"orderable": false, "targets": 'no-sort'}
+                    ]
+                });
+            });
+
+            // TAREAS PROGRAMADAS ROL_ADMIN Y ROL_UNIDAD
+            $(document).ready(function () {
+                $('#tarPro5').dataTable({
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por página",
+                        "zeroRecords": "Sin resultados",
+                        "info": "Mostrando página _PAGE_ de _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                        "sPrevious": "Anterior",
+                        "sNext": "Siguiente",
+                        "sSearch": "Buscar",
+                        "sFirst": "Primero",
+                        "sLast": "Último"
+                    },
+                    "columnDefs": [
+                        {"orderable": false, "targets": 'no-sort'}
+                    ]
+                });
+            });
+            
+             // TAREAS ATRASADAS ROL_ADMIN Y ROL_UNIDAD
+            $(document).ready(function () {
+                $('#tarAtra5').dataTable({
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por página",
+                        "zeroRecords": "Sin resultados",
+                        "info": "Mostrando página _PAGE_ de _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                        "sPrevious": "Anterior",
+                        "sNext": "Siguiente",
+                        "sSearch": "Buscar",
+                        "sFirst": "Primero",
+                        "sLast": "Último"
+                    },
+                    "columnDefs": [
+                        {"orderable": false, "targets": 'no-sort'}
+                    ]
+                });
+            });
+            
+             // TAREAS ATRASADAS ROL_USUARIO
+            $(document).ready(function () {
+                $('#tarAtra4').dataTable({
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por página",
+                        "zeroRecords": "Sin resultados",
+                        "info": "Mostrando página _PAGE_ de _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                        "sPrevious": "Anterior",
+                        "sNext": "Siguiente",
+                        "sSearch": "Buscar",
+                        "sFirst": "Primero",
+                        "sLast": "Último"
+                    },
+                    "columnDefs": [
+                        {"orderable": false, "targets": 'no-sort'}
+                    ]
+                });
+            });
+
+        </script>
+
+
+    </body>
+
+</html>

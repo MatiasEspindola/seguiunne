@@ -1,0 +1,1007 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+    <head th:replace="layout/layout :: head">
+
+
+    </head>
+
+    <body class="grey lighten-3">
+
+        <!-- ENCABEZADO Original-->
+        <header th:replace="layout/layout :: header"></header>
+
+        <!-- MAIN -->
+        <main class="pt-5 mx-lg-5">
+            <div  class="container-fluid mt-5">
+
+                <div style="height: 100%">
+
+                    <div class="card flex-column p-4 mb-4" >
+                        <span>Estás aquí &nbsp; <i class="fa fa-hand-o-right" aria-hidden="true"></i> &nbsp;
+                            <a th:href="@{/tareas/calendario}" th:text="'Calendario'"></a>
+                        </span>
+                    </div>
+
+                    <style>
+                        @media (max-width:575px) {
+                            .display-4 {
+                                font-size: 1.5rem;
+                            }
+                            .day h5 {
+                                background-color: #f8f9fa;
+                                padding: 3px 5px 5px;
+                                margin: -8px -8px 8px -8px;
+                            }
+                            .date {
+                                padding-left: 4px;
+                            }
+                        }
+
+                        @media (min-width: 576px) {
+                            .day {
+                                height: 14.2857vw;
+                            }
+                        }
+                    </style>
+
+                    <!-- Calendario -->
+
+                    <!-- Junio 2019 -->
+                    <!-- Columna vacía d-none d-sm-inline-block bg-light text-muted -->
+                    <div class="container-fluid" >
+                        <header>
+                            <div class="row">
+                                <div class="col align-self-start text-center col-sm-4">
+                                    <a th:href="@{/tareas/meses/mayo_19}" class="btn btn-primary btn-lg" style="margin: 10px;"><i class="fa fa-angle-left" style="margin:5px; font-size:20px;"></i> Mayo 2019</a>
+                                </div>
+                                <div class="col align-self-center text-center col-sm-4">
+                                    <h2>Junio <b th:text="${yyyy}"></b></h2>
+                                </div>
+                                <div class="col align-self-end text-center col-sm-4 ">
+                                    <a th:href="@{/tareas/meses/julio_19}" class="btn btn-primary btn-lg" style="margin: 10px;">Julio 2019 <i class="fa fa-angle-right" style="margin:5px; font-size:20px;"></i></a>
+                                </div>
+                            </div> 
+                            <div th:replace="tareas/calendario :: estados"></div>
+                            <div class="row d-none d-sm-flex p-1 bg-dark text-white">
+                                <h5 class="col-sm p-1 text-center">Domingo</h5>
+                                <h5 class="col-sm p-1 text-center">Lunes</h5>
+                                <h5 class="col-sm p-1 text-center">Martes</h5>
+                                <h5 class="col-sm p-1 text-center">Miércoles</h5>
+                                <h5 class="col-sm p-1 text-center">Jueves</h5>
+                                <h5 class="col-sm p-1 text-center">Viernes</h5>
+                                <h5 class="col-sm p-1 text-center">Sábado</h5>
+                            </div>
+                        </header>
+                        <div class="row border border-right-0 border-bottom-0">
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate d-none d-sm-inline-block bg-light text-muted">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">26</span>
+                                    <small class="col d-sm-none text-center text-muted">Domingo</small>
+                                    <span class="col-1"></span>
+                                </h5>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate d-none d-sm-inline-block bg-light text-muted">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">27</span>
+                                    <small class="col d-sm-none text-center text-muted">Lunes</small>
+                                    <span class="col-1"></span>
+                                </h5>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate d-none d-sm-inline-block bg-light text-muted">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">28</span>
+                                    <small class="col d-sm-none text-center text-muted">Martes</small>
+                                    <span class="col-1"></span>
+                                </h5>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate d-none d-sm-inline-block bg-light text-muted">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">29</span>
+                                    <small class="col d-sm-none text-center text-muted">Miércoles</small>
+                                    <span class="col-1"></span>
+                                </h5>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate d-none d-sm-inline-block bg-light text-muted">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">30</span>
+                                    <small class="col d-sm-none text-center text-muted">Jueves</small>
+                                    <span class="col-1"></span>
+                                </h5>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate d-none d-sm-inline-block bg-light text-muted">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">31</span>
+                                    <small class="col d-sm-none text-center text-muted">Viernes</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">1</span>
+                                    <small class="col d-sm-none text-center text-muted">Sábado</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 1} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 1} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 1} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 1} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">2</span>
+                                    <small class="col d-sm-none text-center text-muted">Domingo</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 2} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 2} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 2} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 2} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">3</span>
+                                    <small class="col d-sm-none text-center text-muted">Lunes</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 3} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 3} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 3} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 3} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">4</span>
+                                    <small class="col d-sm-none text-center text-muted">Martes</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 4} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 4} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 4} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 4} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">5</span>
+                                    <small class="col d-sm-none text-center text-muted">Miércoles</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 5} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 5} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 5} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 5} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">6</span>
+                                    <small class="col d-sm-none text-center text-muted">Jueves</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 6} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 6} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 6} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 6} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">7</span>
+                                    <small class="col d-sm-none text-center text-muted">Viernes</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 7} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 7} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 7} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 7} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">8</span>
+                                    <small class="col d-sm-none text-center text-muted">Sábado</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 8} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 8} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 8} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 8} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">9</span>
+                                    <small class="col d-sm-none text-center text-muted">Domingo</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 9} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 9} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 9} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 9} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">10</span>
+                                    <small class="col d-sm-none text-center text-muted">Lunes</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 10} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 10} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 10} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 10} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">11</span>
+                                    <small class="col d-sm-none text-center text-muted">Martes</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 11} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 11} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 11} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 11} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">12</span>
+                                    <small class="col d-sm-none text-center text-muted">Miércoles</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 12} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 12} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 12} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 12} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">13</span>
+                                    <small class="col d-sm-none text-center text-muted">Jueves</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 13} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 13} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 13} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 13} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">14</span>
+                                    <small class="col d-sm-none text-center text-muted">Viernes</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 14} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 14} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 14} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 14} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">15</span>
+                                    <small class="col d-sm-none text-center text-muted">Sábado</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 15} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 15} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 15} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 15} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">16</span>
+                                    <small class="col d-sm-none text-center text-muted">Domingo</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 16} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 16} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 16} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 16} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">17</span>
+                                    <small class="col d-sm-none text-center text-muted">Lunes</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 17} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 17} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 17} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 17} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">18</span>
+                                    <small class="col d-sm-none text-center text-muted">Martes</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 18} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 18} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 18} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 18} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">19</span>
+                                    <small class="col d-sm-none text-center text-muted">Miércoles</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 19} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 19} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 19} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 19} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">20</span>
+                                    <small class="col d-sm-none text-center text-muted">Jueves</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 20} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 20} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 20} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 20} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">21</span>
+                                    <small class="col d-sm-none text-center text-muted">Viernes</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 21} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 21} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 21} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 21} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">22</span>
+                                    <small class="col d-sm-none text-center text-muted">Sábado</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 22} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 22} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 22} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 22} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">23</span>
+                                    <small class="col d-sm-none text-center text-muted">Domingo</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 23} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 23} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 23} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 23} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">24</span>
+                                    <small class="col d-sm-none text-center text-muted">Lunes</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 24} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 24} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 24} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 24} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">25</span>
+                                    <small class="col d-sm-none text-center text-muted">Martes</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 25} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 25} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 25} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 25} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">26</span>
+                                    <small class="col d-sm-none text-center text-muted">Miércoles</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 26} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 26} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 26} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 26} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">27</span>
+                                    <small class="col d-sm-none text-center text-muted">Jueves</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 27} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 27} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 27} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 27} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">28</span>
+                                    <small class="col d-sm-none text-center text-muted">Viernes</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 28} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 28} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 28} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 28} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">29</span>
+                                    <small class="col d-sm-none text-center text-muted">Sábado</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 29} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 29} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 29} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 29} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">30</span>
+                                    <small class="col d-sm-none text-center text-muted">Domingo</small>
+                                    <span class="col-1"></span>
+                                </h5>
+                                <div>
+                                     <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
+                                       th:each="tF : ${listarTF}" th:text="${tF.titu}" th:if="${tF.getFecFin().getDate() == 30} and (${tF.getFecFin().getMonth() + 1 == 6} and ${tF.getFecFin().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tF.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-primary text-white"
+                                       th:each="tEC : ${listarTEC}" th:text="${tEC.titu}" th:if="${tEC.getFecIni().getDate() == 30} and (${tEC.getFecIni().getMonth() + 1 == 6} and ${tEC.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tEC.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white"
+                                       th:each="tA : ${listarTA}" th:text="${tA.titu}" th:if="${tA.getFecIni().getDate() == 30} and (${tA.getFecIni().getMonth() + 1 == 6} and ${tA.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tA.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small text-white" style="background: #8B008B; color: white;" 
+                                       th:each="tR : ${listarTR}" th:text="${tR.titu}" th:if="${tR.getFecIni().getDate() == 30} and (${tR.getFecIni().getMonth() + 1 == 6} and ${tR.getFecIni().getYear() == 119})"
+                                       th:href="@{/actividades/ver/} + ${tR.fkIdAct.getPkIdAct()}">
+                                    </a>
+                                    <br>
+                                </div>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate d-none d-sm-inline-block bg-light text-muted">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">1</span>
+                                    <small class="col d-sm-none text-center text-muted">Lunes</small>
+                                    <span class="col-1"></span>
+                                </h5>
+
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate d-none d-sm-inline-block bg-light text-muted">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">2</span>
+                                    <small class="col d-sm-none text-center text-muted">Martes</small>
+                                    <span class="col-1"></span>
+                                </h5>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate d-none d-sm-inline-block bg-light text-muted">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">3</span>
+                                    <small class="col d-sm-none text-center text-muted">Miércoles</small>
+                                    <span class="col-1"></span>
+                                </h5>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate d-none d-sm-inline-block bg-light text-muted">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">4</span>
+                                    <small class="col d-sm-none text-center text-muted">Jueves</small>
+                                    <span class="col-1"></span>
+                                </h5>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate d-none d-sm-inline-block bg-light text-muted">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">5</span>
+                                    <small class="col d-sm-none text-center text-muted">Viernes</small>
+                                    <span class="col-1"></span>
+                                </h5>
+
+                            </div>
+                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate d-none d-sm-inline-block bg-light text-muted">
+                                <h5 class="row align-items-center">
+                                    <span class="date col-1">6</span>
+                                    <small class="col d-sm-none text-center text-muted">Sábado</small>
+                                    <span class="col-1"></span>
+                                </h5>
+
+                            </div>
+                        </div>
+                       
+                    </div>
+
+
+                </div>
+
+            </div>
+        </main>
+
+        <!-- PIE -->
+        <footer th:replace="layout/layout :: footer"></footer>
+
+        <script>
+
+        </script>
+
+
+    </body>
+
+</html>

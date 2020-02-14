@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+    <head th:replace="layout/layout :: head">
+
+
+    </head>
+
+    <body class="grey lighten-3">
+
+        <!-- ENCABEZADO -->
+        <header th:replace="layout/layout :: header"></header>
+
+        <!-- MAIN -->
+        <main class="pt-5 mx-lg-5">
+            <div  class="container-fluid mt-5">
+
+                <!-- Start your project here-->
+                <div style="height: 100%">
+
+                    <!-- Ruta -->
+
+                    <div class="card flex-column p-4 mb-4" >
+                        <span>Estás aquí &nbsp; <i class="fa fa-hand-o-right" aria-hidden="true"></i> &nbsp;
+                            <a th:href="@{/proyectos/listar}" th:text="'Mis Proyectos'"></a>
+                            <span th:text="' / '"></span>
+                            <a th:href="@{/actividades/listar/} + ${tarea.fkIdAct.fkIdPro.fkIdDat.pkIdDat}" th:text="'Actividades'"></a>
+                            <span th:text="' / '"></span>
+                            <a th:href="@{/actividades/ver/} + ${tarea.fkIdAct.pkIdAct}" th:text="'Detalle de Actividad'"></a>
+                            <span th:text="' / '"></span>
+                            <a th:href="@{/tareas/edit/} + ${tarea.pkIdTar}" th:text="'Editar Tarea'"></a>
+                        </span>
+                    </div>
+
+                    <!-- Fin Ruta -->
+                    <div class="alert alert-success" role="alert" th:if="${success != null}"
+                         th:text="${success}"></div>
+
+                    <div class="alert alert-danger" role="alert" th:if="${error != null}"
+                         th:text="${error}"></div>
+
+                    <div class="alert alert-warning" role="alert" th:if="${warning != null}"
+                         th:text="${warning}"></div>
+
+                    <div class="alert alert-info" role="alert" th:if="${info != null}"
+                         th:text="${info}"></div>
+                    <!-- Maestro -->
+
+                    <div class="card flex-column p-4 mb-4" >
+                        <h3 class="animated fadeIn mb-0 text-muted" th:text="${tarea.fkIdAct.descri} + '&nbsp;&nbsp;-&nbsp;&nbsp;' + ${titulo}"></h3>
+
+                        <div class="card-body">
+
+                            <form th:action="@{/tareas/form/}" th:object="${tarea}" method="post">
+
+                                <!-- Material inputs -->
+                                <div class="md-form">
+                                    <input type="text" id="titu" th:field="*{titu}" required class="form-control" th:errorClass="'form-control is-invalid'">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('titu')}" th:errors="*{titu}"></div>
+                                    <label for="titu" >Título de la tarea</label>
+                                </div>
+
+                                <div class="md-form">
+                                    <input type="text" id="lugar" th:field="*{lugar}" required class="form-control" th:errorClass="'form-control is-invalid'">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('lugar')}" th:errors="*{lugar}"></div>
+                                    <label for="titu" >Lugar (Organización o entidad)</label>
+                                </div>
+
+                                <div class="md-form">
+                                    <textarea type="text" id="descri" th:field="*{descri}" required class="md-textarea form-control" th:errorClass="'form-control is-invalid'" rows="2"/>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('descri')}" th:errors="*{descri}"></div>
+                                    <label for="descri" >Descripción de la tarea</label>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="prio" class="col-sm-2 col-form-label text-muted" th:text="Prioridad"></label>
+                                    <div class="col-sm-6">
+                                        <select id="prio" th:field="*{prio}" required class="form-control">
+                                            <option value="" disabled selected="selected">Elija una opción</option>
+                                            <option th:value="'1) Baja - Actividades Organizativas'" th:text="'Baja'"></option>
+                                            <option th:value="'2) Media - Reuniones involucrando territorio'" th:text="'Media'"></option>
+                                            <option th:value="'3) Alta - Acciones Directas'" th:text="'Alta'"></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="fecini" required class="col-sm-2 col-form-label text-muted" th:text="'Fecha de Inicio'"></label>
+                                    <div class="col-sm-6">
+                                        <input type="date" id="fecini" th:field="*{fecIni}" th:value="*{fecIni}" class="form-control" style="width: 20.0rem;" th:errorClass="'form-control is-invalid'">
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('fecIni')}" th:errors="*{fecIni}"></div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="fecfin" required class="col-sm-2 col-form-label text-muted" th:text="'Fecha de Fin'"></label>
+                                    <div class="col-sm-6">
+                                        <input type="date" id="fecfin" th:field="*{fecFin}" th:value="*{fecFin}" class="form-control" style="width: 20.0rem;" th:errorClass="'form-control is-invalid'">
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('fecFin')}" th:errors="*{fecFin}"></div>
+
+                                    </div>
+                                </div>
+
+                                <input type="hidden" id="act" name="act" th:field="*{fkIdAct.pkIdAct}" />
+
+                                <input type="hidden" id="loc_id" name="loc_id" th:field="*{fkIdLoc.pkIdLoc}" />
+
+
+                                <input type="submit" value="Guardar tarea" class="btn btn-secondary btn-xs float-left mt-4 mb-4" />
+
+                                <input type="hidden" th:field="*{pkIdTar}" />
+                            </form>
+                        </div>
+
+                    </div>
+
+                    <!-- Fin Maestro -->
+
+
+                </div>
+        </main>
+
+        <div>
+            <!-- PIE -->
+            <footer th:replace="layout/layout :: footer"></footer>
+
+        </div>
+        <script th:replace="tareas/js/autocomplete-localidades :: javascript"></script>
+    </body>
+
+</html>

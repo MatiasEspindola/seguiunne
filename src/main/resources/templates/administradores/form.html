@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+    <head th:replace="layout/layout :: head"></head>
+    <body class="grey lighten-3">
+
+        <header th:replace="layout/layout :: header"></header>
+
+        <!-- MAIN -->
+        <main class="pt-5 mx-lg-5">
+            <div  class="container-fluid mt-5">
+
+                <!-- Start your project here-->
+                <div style="height: 100%">
+
+                    <!-- Ruta -->
+
+                    <div class="card flex-column p-4 mb-4" >
+                        <span>Estás aquí &nbsp; <i class="fa fa-hand-o-right" aria-hidden="true"></i> &nbsp;
+                            <a th:href="@{/administradores/form}" th:text="'Crear Administrador de Proyectos de Extensión'"></a>
+                        </span>
+                    </div>
+
+                    <!-- Fin Ruta -->
+
+                    <!-- Maestro -->
+
+                    <div class="card flex-column p-4 mb-4" >
+                        <h4 class="animated fadeIn mb-4 text-muted" th:text="${titulo_form}"></h4>
+
+                        <form th:action="@{/administradores/form/}" th:object="${usuario}" method="post">
+
+                            <div class="md-form">
+                                <input type="text" id="usuario"  required class="form-control" th:field="*{usuario}">
+                                <label for="usuario" >Nombre de Usuario:</label>
+                                <span style="color:red" th:text="${error}"></span>
+                            </div>
+
+                            <div class="md-form">
+                                <input type="password" id="clave1" required class="form-control" th:field="*{clave}">
+
+                                <label for="clave1" >Contraseña: </label>
+                            </div>
+
+                            <div class="md-form">
+                                <input type="password" name="clave2" id="clave2" required class="form-control" >
+
+                                <label for="clave2" >Repetir Contraseña: </label>
+                            </div>
+
+                            <div class="md-form">
+
+                                <label for="facultades" >Seleccione Facultad:</label> <br><br>
+                                <select id="facultad" name="facultad" required class="form-control">
+                                    <option value="" disabled selected="selected">Elija una opción</option>
+                                    <option th:each="f: ${facultades}" th:text="${f.pkIdFac} + ') ' + ${f.facultad}" th:value="${f.pkIdFac}"></option>
+                                </select>
+
+                            </div>
+
+                            <input type="submit" value="Guardar" onclick="return checkPass()" class="btn btn-secondary btn-xs float-left mt-4 mb-4" />
+
+                        </form>
+                    </div>	
+                </div>
+            </div>
+        </main>
+        
+        <footer th:replace="layout/layout :: footer"></footer>
+        
+        <script>
+            function checkPass() {
+                if (document.getElementById("clave1").value == document.getElementById("clave2").value)
+                    return true;
+                else
+                    alert("Las contraseñas no coinciden");
+                return false;
+            }
+        </script>
+        
+    </body>
+</html>
